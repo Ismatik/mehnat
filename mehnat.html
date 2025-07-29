@@ -11,11 +11,30 @@
 
 <body>
     <div class="pageone">
-        <h1 class = "header">Профиль Соискателя Работы</h1>
+        <h1 class="header">Профиль Соискателя Работы</h1>
         <div class="circles">
             <div class="circle"></div>
             <div class="lane"></div>
             <div class="circle2"></div>
+        </div>
+        <div class="circles">
+            <label class="lab">Данные Соискателя</label>
+            <div class="lane2"></div>
+            <label class="lab">Другая Информация</label>
+        </div>
+        <div class="profile">
+            <div class="profilepic">
+                <label class="profpic"
+                    for="profilepicture">Размер файла не более 1 МБ,
+                    Размер не более: 1920x500.
+                    Форматы .jpg и .png</label>
+                <input type="file" name = "profilepicture" placeholder="Загрузить фото" id="profilepicture" style="display: none;"/>
+            </div>
+            <div class="miniblock">
+                <label for="labinput">Имя</label>
+                <input type="text" placeholder="Имя"/>
+            </div>
+
         </div>
     </div>
 </body>
