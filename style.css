@@ -1,7 +1,7 @@
-* {
+
     /* padding-top: 10px; */
     /* margin: 0; */
-}
+
 
 body {
     background-color: #A1F0A1;
@@ -85,13 +85,12 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    gap: 10px;
+    /* gap: 10px; */
 }
 
 .swap {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     gap: 5px;
 }
@@ -122,19 +121,56 @@ body {
 .input {
     border-radius: 5px;
     border-color: #A1F0A1;
-
 }
 
-button {
-    width: 10px;
-    height: 15px;
-    background-color: white;
-    border-color: #A1F0A1;
-}
 
 .dalee {
     background-color: #A1F0A1;
     border-radius: 10px;
     width: auto;
     height: auto;
+    margin-top: 10px;
+    margin-left: 120px;
+}
+
+
+@media screen and (min-width:768px) {
+    .profile {
+        width: 380px;
+        align-items: start;
+    }
+
+    .swap {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .profpic {
+        text-align: center;
+        align-items: center;
+        font: 20px;
+    }
+
+    .miniblock {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .labinput{
+        display: block;
+    }
+
+    .button{
+        display: flex;
+        flex-direction: row-reverse;
+        width: 100%;
+    }
+    .dalee{
+        width: 80px;
+        height: 20px;
+        border-radius: 5;
+    }
 }
