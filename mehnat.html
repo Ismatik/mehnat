@@ -23,20 +23,81 @@
             <label class="lab">Другая Информация</label>
         </div>
         <div class="profile">
-            <div class="profilepic">
-                <label class="profpic"
-                    for="profilepicture">Размер файла не более 1 МБ,
-                    Размер не более: 1920x500.
-                    Форматы .jpg и .png</label>
-                <input type="file" name = "profilepicture" placeholder="Загрузить фото" id="profilepicture" style="display: none;"/>
+            <div class="swap">
+                <div class="profilepic">
+                    <label class="profpic" for="profilepicture">Размер файла не более 1 МБ,
+                        Размер не более: 1920x500.
+                        Форматы .jpg и .png</label>
+                    <input type="file" name="profilepicture" placeholder="Загрузить фото" id="profilepicture"
+                        style="display: none;" />
+                </div>
+                <div class="ns">
+                    <div class="miniblock">
+                        <label for="labinput">Имя</label>
+                        <input type="text" placeholder="Имя" name="input" class="input" />
+                    </div>
+                    <div class="miniblock">
+                        <label for="labinput">Фамилия</label>
+                        <input type="text" placeholder="Фамилия" name="input" class="input" />
+                    </div>
+                </div>
             </div>
-            <div class="miniblock">
-                <label for="labinput">Имя</label>
-                <input type="text" placeholder="Имя"/>
+            <div class="swap">
+                <div class="miniblock">
+                    <label for="labinput">Дата рождения</label>
+                    <input type="text" placeholder="07 Июль 2025" name="input" class="input" />
+                </div>
+                <div class="miniblock">
+                    <label for="labinput">Пол</label>
+                    <div class="radio">
+                        <button name="Мужской"></button>
+                        <label for="Мужской">Мужской</label>
+                        <button name="Женский"></button>
+                        <label for="Женский">Женский</label>
+                    </div>
+                </div>
             </div>
-
+            <div class="swap">
+                <div class="miniblock">
+                    <label for="labinput">ИНН</label>
+                    <input type="number" placeholder="123456789" name="input" class="input" />
+                </div>
+                <div class="miniblock">
+                    <label for="labinput">Эл. почта</label>
+                    <input type="text" placeholder="E-mail" name="input" class="input" />
+                </div>
+            </div>
+            <div class="swap">
+                <div class="miniblock">
+                    <label for="labinput">Место рождения</label>
+                    <input type="text" placeholder="Страна" name="input" class="input" />
+                </div>
+                <div class="miniblock">
+                    <label for="labinput" style="color: white;">Место рождения</label>
+                    <input type="text" placeholder="Город/Регион/Район" name="input" class="input" />
+                </div>
+            </div>
+            <div class="swap">
+                <div class="miniblock">
+                    <label for="labinput">Адрес</label>
+                    <input type="text" placeholder="Ноҳияи Фирдавси, Шамси 7" name="input" class="input">
+                </div>
+            </div>
+            <div class="swap">
+                <div class="miniblock">
+                    <label for="labinput">Моб. телефон</label>
+                    <input type="text" placeholder="Номер мобильного телефона" name="input" class="input" />
+                </div>
+                <div class="miniblock">
+                    <label for="labinput">WhatsApp/Telegram</label>
+                    <input type="text" placeholder="Номер" name="input" class="input" />
+                </div>
+            </div>
+            <div>
+                <button class="dalee">Далее</button>
+            </div>
         </div>
-    </div>
+
 </body>
 
 </html>
