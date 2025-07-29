@@ -1,13 +1,13 @@
-*{
+* {
     /* padding-top: 10px; */
     /* margin: 0; */
 }
 
-body{
+body {
     background-color: #A1F0A1;
 }
 
-.pageone{
+.pageone {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,12 +16,12 @@ body{
     height: 100%;
 }
 
-.header{
+.header {
     font-size: 24px;
     font-family: "Open Sans";
 }
 
-.circles{
+.circles {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -36,7 +36,7 @@ body{
     border-color: #A1F0A1;
 } */
 
-.circle{
+.circle {
     background-color: #A1F0A1;
     border-width: 1px;
     border-style: solid;
@@ -46,17 +46,17 @@ body{
     border-radius: 50%;
 }
 
-.circle2{
+.circle2 {
     background-color: white;
     border-width: 1px;
     border-style: solid;
     border-color: #A1F0A1;
     width: 40px;
     height: 40px;
-    border-radius: 50%;    
+    border-radius: 50%;
 }
 
-.lane{
+.lane {
     align-items: center;
     width: 80px;
     /* height: 0px;
@@ -66,20 +66,20 @@ body{
 }
 
 
-.lane2{
+.lane2 {
     background-color: white;
     height: 2px;
     width: 40px;
     border-color: #A1F0A1;
 }
 
-.lab{
+.lab {
     margin-top: 2%;
     font-size: 12px;
     font-family: 'Open Sans';
-} 
+}
 
-.profile{
+.profile {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -88,13 +88,15 @@ body{
     gap: 10px;
 }
 
-.swap{
+.swap {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 5px;
 }
-.profilepic{
+
+.profilepic {
     width: 50%;
     height: 20%;
     border-width: 2px;
@@ -102,37 +104,37 @@ body{
     border-color: #A1F0A1;
     border-radius: 5px;
     text-align: center;
-    font:15px sans-serif;
+    font: 15px sans-serif;
 }
 
-.miniblock{
+.miniblock {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 4px;
 }
 
-.labinput{
+.labinput {
     font-family: 'Open Sans';
     font-size: 100px;
 }
 
-.input{
+.input {
     border-radius: 5px;
     border-color: #A1F0A1;
 
 }
 
-button{
+button {
     width: 10px;
     height: 15px;
     background-color: white;
     border-color: #A1F0A1;
 }
 
-.dalee{
+.dalee {
     background-color: #A1F0A1;
     border-radius: 10px;
     width: auto;
     height: auto;
-
 }
