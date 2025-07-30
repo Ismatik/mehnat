@@ -151,11 +151,13 @@ label {
         font-size: 36px;
 
     }
-
+    .input{
+        width: 100%;
+        /* max-width: 300%; */
+    }
     .profile {
         min-width: 40%;
-        max-width: 45%;
-        align-items: start;
+        max-width: 60%;
         gap: 5px;
     }
 
@@ -163,6 +165,7 @@ label {
         display: flex;
         flex-direction: row;
         width: 100%;
+        gap: 30px;
     }
 
     .profilepic {
@@ -225,6 +228,8 @@ label {
         align-items: end;
         gap: 100px !important;
     }
+
+
 }
 
 /* ---------------------PAGE TWO--------------------- */
