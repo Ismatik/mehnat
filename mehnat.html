@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <form class="pageone">
+    <form class="pageone" id="firstPage" >
         <h1 class="header">Профиль Соискателя Работы</h1>
         <div class="circles">
             <div class="circle"></div>
@@ -33,22 +33,22 @@
                 </div>
                 <div class="ns">
                     <div class="miniblock">
-                        <label id="labinput">Имя</label>
+                        <label >Имя</label>
                         <input type="text" placeholder="Имя" name="input" class="input" />
                     </div>
                     <div class="miniblock">
-                        <label id="labinput">Фамилия</label>
+                        <label >Фамилия</label>
                         <input type="text" placeholder="Фамилия" name="input" class="input" />
                     </div>
                 </div>
             </div>
             <div class="swap">
                 <div class="miniblock">
-                    <label id="labinput">Дата рождения</label>
-                    <input type="date" placeholder="07 Июль 2025" name="input" class="input" style="width: 180px;"/>
+                    <label >Дата рождения</label>
+                    <input type="date" placeholder="07 Июль 2025" name="input" class="input" style="width: 180px;" />
                 </div>
                 <div class="miniblock">
-                    <label id="labinput">Пол</label>
+                    <label >Пол</label>
                     <div class="radio">
                         <input type="checkbox" id="Мужской" class="checkbox" />
                         <label for="Мужской">Мужской</label>
@@ -59,43 +59,90 @@
             </div>
             <div class="swap">
                 <div class="miniblock">
-                    <label id="labinput">ИНН</label>
+                    <label >ИНН</label>
                     <input type="number" placeholder="123456789" name="input" class="input" />
                 </div>
                 <div class="miniblock">
-                    <label id="labinput">Эл. почта</label>
+                    <label >Эл. почта</label>
                     <input type="text" placeholder="E-mail" name="input" class="input" />
                 </div>
             </div>
             <div class="swap">
                 <div class="miniblock">
-                    <label id="labinput">Место рождения</label>
+                    <label >Место рождения</label>
                     <input type="text" placeholder="Страна" name="input" class="input" />
                 </div>
                 <div class="miniblock">
-                    <label id="labinput">Место рождения</label>
+                    <label >Место рождения</label>
                     <input type="text" placeholder="Город/Регион/Район" name="input" class="input" />
                 </div>
             </div>
             <div class="miniblock">
-                <label id="labinput">Адрес</label>
+                <label >Адрес</label>
                 <input type="text" placeholder="Ноҳияи Фирдавси, Шамси 7" name="input" class="input">
             </div>
             <div class="swap">
                 <div class="miniblock">
-                    <label id="labinput">Моб. телефон</label>
+                    <label >Моб. телефон</label>
                     <input type="text" placeholder="Номер мобильного телефона" name="input" class="input" />
                 </div>
                 <div class="miniblock">
-                    <label id="labinput">WhatsApp/Telegram</label>
+                    <label >WhatsApp/Telegram</label>
                     <input type="text" placeholder="Номер" name="input" class="input" />
                 </div>
             </div>
             <div class="button">
-                <button class="dalee">Далее</button>
+                <button class="dalee" onclick="nextPage()">Далее</button>
             </div>
         </div>
-    </form>    
+    </form>
+
+    <div class="pagetwo" id="secondPage">
+        <h1 class="header">Профиль Соискателя Работы</h1>
+        <div class="circles">
+            <div class="circle"></div>
+            <div class="lane"></div>
+            <div class="circle"></div>
+        </div>
+        <div class="circles">
+            <label class="lab">Данные Соискателя</label>
+            <div class="lane2"></div>
+            <label class="lab">Другая Информация</label>
+        </div>
+        <div class="profile">
+            <div class="swap">
+                <div class="miniblock">
+                    <label >Выберите страны где хотите работать</label>
+                    <input type="select" placeholder="Выбор стран" name="input" class="input" />
+                </div>
+                <div class="miniblock">
+                    <label >Желаемая зарплата в USD не менее </label>
+                    <input type="select" placeholder="Выберите сумму в USD" name="input" class="input" />
+                </div>
+            </div>
+            <div class="swap">
+                <div class="miniblock">
+                    <label >Категория специализации</label>
+                    <input type="text" placeholder="Выберите категорию" name="input" class="input" />
+                </div>
+                <div class="miniblock">
+                    <label >Специализация</label>
+                    <input type="text" placeholder="Выберите специализацию" name="input" class="input" />
+                </div>
+            </div>
+            <div class="swap">
+                <div class="miniblock">
+                    <label >Образование</label>
+                    <input type="select" placeholder="Выберите образование" name="input" class="input" />
+                </div>
+                <div class="miniblock">
+                    <label >Текущая работа</label>
+                    <input type="text" placeholder="Напишите кем вы сейчас работаете" name="input" class="input" />
+                </div>
+            </div>
+        </div>
+
+    </div>
 </body>
 
 </html>
