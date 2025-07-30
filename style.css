@@ -1,6 +1,5 @@
-
-    /* padding-top: 10px; */
-    /* margin: 0; */
+/* padding-top: 10px; */
+/* margin: 0; */
 
 
 body {
@@ -14,6 +13,7 @@ body {
     background-color: white;
     width: 100%;
     height: 100%;
+    padding-bottom: 5%;
 }
 
 .header {
@@ -56,6 +56,9 @@ body {
     border-radius: 50%;
 }
 
+/* .ns{
+    width: auto;
+} */
 .lane {
     align-items: center;
     width: 80px;
@@ -80,6 +83,7 @@ body {
 }
 
 .profile {
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,7 +100,7 @@ body {
 }
 
 .profilepic {
-    width: 50%;
+    width: 40%;
     height: 20%;
     border-width: 2px;
     border-style: solid;
@@ -108,6 +112,7 @@ body {
 
 .miniblock {
     display: flex;
+    flex: 1;
     flex-direction: column;
     justify-content: center;
     gap: 4px;
@@ -131,19 +136,32 @@ body {
     height: auto;
     margin-top: 10px;
     margin-left: 120px;
+
 }
 
 
 @media screen and (min-width:768px) {
+
+    .header {
+        font-size: 36px;
+
+    }
+
     .profile {
-        width: 380px;
+        min-width: 40%;
+        max-width: 45%;
         align-items: start;
+        gap: 5px;
     }
 
     .swap {
         display: flex;
         flex-direction: row;
         width: 100%;
+    }
+
+    .profilepic {
+        width: 50%;
     }
 
     .profpic {
@@ -159,18 +177,39 @@ body {
         justify-content: center;
     }
 
-    .labinput{
+    .labinput {
         display: block;
     }
 
-    .button{
+    .button {
         display: flex;
         flex-direction: row-reverse;
         width: 100%;
     }
-    .dalee{
+
+    .dalee {
         width: 80px;
         height: 20px;
         border-radius: 5;
+        font-size: 16px;
+    }
+
+
+    .lane {
+        align-items: center;
+        width: 160px;
+        border: 1px solid #A1F0A1;
+    }
+
+
+    .lane2 {
+        background-color: white;
+        height: 2px;
+        width: 100px;
+        border-color: #A1F0A1;
+    }
+
+    .ns{
+        width: 50%;
     }
 }
