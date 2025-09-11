@@ -20,7 +20,7 @@ See the Figma design: [Final design change](https://www.figma.com/proto/zz4phdQa
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/yourusername/mehnat.git
+    git clone https://github.com/Ismatik/mehnat
     ```
 2. Open `mehnat.html` in your browser.
 
