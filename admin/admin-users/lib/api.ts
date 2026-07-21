@@ -137,3 +137,26 @@ export function updateUser(id: number, payload: Partial<UserPayload>) {
 export function deleteUser(id: number) {
   return request<void>(`/admin/users/${id}`, { method: "DELETE" });
 }
+
+// ---- Журнал аудита (ВСЕ логи, только superadmin; только чтение) ----
+export type Row = Record<string, any>;
+export function listAudit(params: Record<string, string> = {}) {
+  const clean = Object.entries(params).filter(([, v]) => v) as [string, string][];
+  const qs = new URLSearchParams(clean).toString();
+  return request<Row[]>(`/admin/users/audit_log${qs ? `?${qs}` : ""}`);
+}
+
+// ---- Сводка (дашборд, только superadmin) ----
+export function getDashboard() {
+  return request<Row>("/admin/users/dashboard");
+}
+
+// ---- Системный статус (только superadmin) ----
+export function getSystemStatus() {
+  return request<Row>("/admin/users/system");
+}
+
+// ---- Выход (фиксируется в аудите) ----
+export function logout() {
+  return request<void>("/auth/logout", { method: "POST" }).catch(() => {});
+}

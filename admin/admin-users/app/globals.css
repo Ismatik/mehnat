@@ -152,6 +152,59 @@ label.field > span { display: block; font-size: 13px; font-weight: 700; color: #
 .login-lang { border: 1px solid var(--border-strong); background: #fff; color: var(--muted); font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 20px; cursor: pointer; }
 .login-lang.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
+/* ---------- Дашборд ---------- */
+.dash-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 18px; }
+.dash-card { text-align: left; }
+.dash-num { font-family: "PT Serif", serif; font-size: 34px; font-weight: 700; color: var(--primary); line-height: 1; }
+.dash-title { font-size: 14px; font-weight: 700; color: #33465e; margin-top: 8px; }
+.dash-sub { font-size: 12.5px; color: var(--muted); margin-top: 2px; }
+.dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.dash-h2 { font-size: 16px; color: var(--primary); margin-bottom: 12px; }
+.dash-table { width: 100%; border-collapse: collapse; }
+.dash-table th { text-align: left; font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 700; padding: 7px 8px; border-bottom: 1px solid var(--border); }
+.dash-table td { padding: 8px; border-bottom: 1px solid var(--border); font-size: 14px; }
+.dash-table tr:last-child td { border-bottom: none; }
+.dash-recent { display: flex; flex-direction: column; }
+.dash-recent-row { display: flex; align-items: center; gap: 6px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13.5px; }
+.dash-recent-row:last-child { border-bottom: none; }
+@media (max-width: 760px) { .dash-cards { grid-template-columns: 1fr; } .dash-grid { grid-template-columns: 1fr; } }
+
+/* ---------- Вкладки ---------- */
+.tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--border); }
+.tab { border: none; background: none; padding: 10px 16px; font-size: 14.5px; font-weight: 700; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+/* ---------- Логи (аудит) ---------- */
+.field-label { display: block; font-size: 13px; font-weight: 700; color: #33465e; margin-bottom: 5px; }
+.audit-table { width: 100%; border-collapse: collapse; }
+.audit-table th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 700; padding: 11px 14px; border-bottom: 1px solid var(--border); }
+.audit-table td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+.audit-table tr:last-child td { border-bottom: none; }
+.audit-table tbody tr.clk:hover td { background: #fafcff; }
+.badge.act-create, .badge.act-publish { background: var(--ok-bg); color: var(--ok); }
+.badge.act-update, .badge.act-login { background: #e7eff8; color: var(--primary); }
+.badge.act-delete, .badge.act-login_failed { background: var(--danger-bg); color: var(--danger); }
+.badge.act-unpublish, .badge.act-logout { background: #f0f2f5; color: #8798ad; }
+.badge.act-user_create, .badge.act-user_update, .badge.act-user_delete { background: #fff1e0; color: #8a5a12; }
+.act-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; vertical-align: middle; background: #c3cedd; }
+.act-dot.act-create, .act-dot.act-publish, .act-dot.act-login, .act-dot.act-user_create { background: var(--ok); }
+.act-dot.act-update, .act-dot.act-upload { background: var(--primary); }
+.act-dot.act-delete, .act-dot.act-login_failed, .act-dot.act-user_delete { background: var(--danger); }
+.act-dot.act-unpublish, .act-dot.act-logout { background: #b6c2d3; }
+.act-dot.act-user_update { background: #d68a1e; }
+.meta-table { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+.meta-table td { padding: 5px 8px; font-size: 13px; vertical-align: top; }
+.meta-table td:first-child { color: var(--muted); width: 130px; white-space: nowrap; }
+.diff-table { width: 100%; border-collapse: collapse; }
+.diff-table th { text-align: left; font-size: 11.5px; text-transform: uppercase; color: var(--muted); font-weight: 700; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+.diff-table td { padding: 7px 8px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; word-break: break-word; }
+.diff-table td.was { color: var(--danger); }
+.diff-table td.now { color: var(--ok); }
+.diff-row { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+.diff-field { font-weight: 700; font-size: 13px; margin-bottom: 4px; color: #33465e; }
+.diff-old { font-size: 12.5px; color: var(--danger); word-break: break-word; }
+.diff-new { font-size: 12.5px; color: var(--ok); word-break: break-word; }
+
 .center-note { text-align: center; color: var(--muted); padding: 60px 20px; }
 .spinner-note { text-align: center; color: var(--muted); padding: 80px 20px; }
 

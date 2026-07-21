@@ -11,12 +11,16 @@ import {
   me,
   clearToken,
   getToken,
+  logout as apiLogout,
   ApiError,
   type SessionUser,
   type User,
 } from "../lib/api";
 import Login from "../components/Login";
 import UserForm from "../components/UserForm";
+import AuditView from "../components/AuditView";
+import DashboardView from "../components/DashboardView";
+import SystemView from "../components/SystemView";
 import { UiLangProvider, useT } from "../components/uilang";
 
 const ROLE_LABEL: Record<string, string> = {
@@ -54,6 +58,7 @@ function PageInner() {
   }, []);
 
   function logout() {
+    void apiLogout();
     clearToken();
     setSession(null);
   }
@@ -65,6 +70,7 @@ function PageInner() {
 
 function Dashboard({ session, onLogout }: { session: SessionUser; onLogout: () => void }) {
   const { t } = useT();
+  const [tab, setTab] = useState<"dashboard" | "users" | "audit" | "system">("dashboard");
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -132,6 +138,21 @@ function Dashboard({ session, onLogout }: { session: SessionUser; onLogout: () =
       </header>
 
       <main className="container" style={{ paddingTop: 28, paddingBottom: 48 }}>
+        <div className="tabs" style={{ marginBottom: 20 }}>
+          <button className={`tab ${tab === "dashboard" ? "active" : ""}`} onClick={() => setTab("dashboard")}>Дашборд</button>
+          <button className={`tab ${tab === "users" ? "active" : ""}`} onClick={() => setTab("users")}>Пользователи</button>
+          <button className={`tab ${tab === "audit" ? "active" : ""}`} onClick={() => setTab("audit")}>Журнал аудита</button>
+          <button className={`tab ${tab === "system" ? "active" : ""}`} onClick={() => setTab("system")}>Система</button>
+        </div>
+
+        {tab === "dashboard" ? (
+          <DashboardView onAuthError={onLogout} />
+        ) : tab === "audit" ? (
+          <AuditView onAuthError={onLogout} />
+        ) : tab === "system" ? (
+          <SystemView onAuthError={onLogout} />
+        ) : (
+        <>
         <div className="row" style={{ marginBottom: 18 }}>
           <h1 style={{ fontSize: 24, color: "var(--primary)" }}>Список пользователей</h1>
           <div className="spacer" />
@@ -209,9 +230,10 @@ function Dashboard({ session, onLogout }: { session: SessionUser; onLogout: () =
             </table>
           )}
         </div>
+        {formOpen && <UserForm editing={editing} onClose={() => setFormOpen(false)} onSaved={onSaved} />}
+        </>
+        )}
       </main>
-
-      {formOpen && <UserForm editing={editing} onClose={() => setFormOpen(false)} onSaved={onSaved} />}
     </>
   );
 }

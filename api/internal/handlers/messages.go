@@ -12,6 +12,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
+	"github.com/mehnat/api/internal/audit"
 	"github.com/mehnat/api/internal/httpx"
 	"github.com/mehnat/api/internal/middleware"
 )
@@ -94,6 +95,9 @@ func (h *Handlers) AdminMessageMarkRead(w http.ResponseWriter, r *http.Request) 
 		httpx.Error(w, http.StatusNotFound, "not found")
 		return
 	}
+	name, _ := rowFromJSON(out)["name"].(string)
+	h.auditContent(r, audit.ActionUpdate, "contact_messages", &id, name,
+		map[string]map[string]interface{}{"is_read": {"new": isRead}})
 	httpx.Raw(w, http.StatusOK, out)
 }
 
@@ -106,6 +110,8 @@ func (h *Handlers) AdminMessageDelete(w http.ResponseWriter, r *http.Request) {
 		httpx.Error(w, http.StatusBadRequest, "invalid id")
 		return
 	}
+	var name string
+	_ = h.Pool.QueryRow(r.Context(), fmt.Sprintf("SELECT name FROM %s WHERE id = $1", tbl), id).Scan(&name)
 	ct, err := h.Pool.Exec(r.Context(), fmt.Sprintf("DELETE FROM %s WHERE id = $1", tbl), id)
 	if err != nil {
 		httpx.Error(w, http.StatusInternalServerError, "delete failed")
@@ -115,5 +121,6 @@ func (h *Handlers) AdminMessageDelete(w http.ResponseWriter, r *http.Request) {
 		httpx.Error(w, http.StatusNotFound, "not found")
 		return
 	}
+	h.auditContent(r, audit.ActionDelete, "contact_messages", &id, name, nil)
 	w.WriteHeader(http.StatusNoContent)
 }

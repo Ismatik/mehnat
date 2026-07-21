@@ -38,6 +38,7 @@ func (h *Handlers) Router() http.Handler {
 	r.Group(func(r chi.Router) {
 		r.Use(middleware.Auth(h.Auth))
 		r.Get("/auth/me", h.Me)
+		r.Post("/auth/logout", h.Logout)
 	})
 
 	// ---- Публичные данные сайта (без токена) ----
@@ -57,6 +58,9 @@ func (h *Handlers) Router() http.Handler {
 		r.Post("/", h.UserCreate)
 		r.Put("/{id}", h.UserUpdate)
 		r.Delete("/{id}", h.UserDelete)
+		r.Get("/audit_log", h.AuditAll)  // все логи (только superadmin)
+		r.Get("/dashboard", h.Dashboard) // сводка (только superadmin)
+		r.Get("/system", h.SystemStatus) // системный статус (только superadmin)
 	})
 
 	// ---- Админка контента конкретного сайта ----
@@ -73,6 +77,8 @@ func (h *Handlers) Router() http.Handler {
 		r.Get("/contact_messages", h.AdminMessagesList)
 		r.Put("/contact_messages/{id}", h.AdminMessageMarkRead)
 		r.Delete("/contact_messages/{id}", h.AdminMessageDelete)
+
+		r.Get("/audit_log", h.AuditSite) // логи только своего сайта
 
 		r.Get("/{resource}", h.AdminList)
 		r.Post("/{resource}", h.AdminCreate)

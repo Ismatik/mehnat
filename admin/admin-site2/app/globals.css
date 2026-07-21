@@ -171,6 +171,41 @@ label.field > span { display: block; font-size: 13px; font-weight: 700; color: #
 .crop-zoom { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
 .crop-foot { display: flex; gap: 10px; justify-content: flex-end; padding: 14px 22px; border-top: 1px solid var(--border); }
 
+/* ---------- Логи (аудит) ---------- */
+.audit-table { width: 100%; border-collapse: collapse; }
+.audit-table th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 700; padding: 11px 14px; border-bottom: 1px solid var(--border); }
+.audit-table td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 13.5px; vertical-align: top; }
+.audit-table tr:last-child td { border-bottom: none; }
+.audit-table tbody tr.clk:hover td { background: #fafcff; }
+.badge.act-create, .badge.act-publish { background: var(--ok-bg); color: var(--ok); }
+.badge.act-update, .badge.act-login { background: #e7eff8; color: var(--primary); }
+.badge.act-delete, .badge.act-login_failed { background: var(--danger-bg); color: var(--danger); }
+.badge.act-unpublish, .badge.act-logout { background: #f0f2f5; color: #8798ad; }
+.badge.act-user_create, .badge.act-user_update, .badge.act-user_delete { background: #fff1e0; color: #8a5a12; }
+.act-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 7px; vertical-align: middle; background: #c3cedd; }
+.act-dot.act-create, .act-dot.act-publish, .act-dot.act-login, .act-dot.act-user_create { background: var(--ok); }
+.act-dot.act-update, .act-dot.act-upload { background: var(--primary); }
+.act-dot.act-delete, .act-dot.act-login_failed, .act-dot.act-user_delete { background: var(--danger); }
+.act-dot.act-unpublish, .act-dot.act-logout { background: #b6c2d3; }
+.act-dot.act-user_update { background: #d68a1e; }
+.meta-table { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+.meta-table td { padding: 5px 8px; font-size: 13px; vertical-align: top; }
+.meta-table td:first-child { color: var(--muted); width: 130px; white-space: nowrap; }
+.diff-table { width: 100%; border-collapse: collapse; }
+.diff-table th { text-align: left; font-size: 11.5px; text-transform: uppercase; color: var(--muted); font-weight: 700; padding: 6px 8px; border-bottom: 1px solid var(--border); }
+.diff-table td { padding: 7px 8px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; word-break: break-word; }
+.diff-table td.was { color: var(--danger); }
+.diff-table td.now { color: var(--ok); }
+.diff-row { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+.diff-field { font-weight: 700; font-size: 13px; margin-bottom: 4px; color: #33465e; }
+.diff-old { font-size: 12.5px; color: var(--danger); word-break: break-word; }
+.diff-new { font-size: 12.5px; color: var(--ok); word-break: break-word; }
+.modal { width: 100%; max-width: 560px; background: #fff; border-radius: 12px; box-shadow: 0 24px 60px rgba(8,32,58,.35); }
+.modal-head { display: flex; align-items: center; padding: 16px 22px; border-bottom: 1px solid var(--border); }
+.modal-head h2 { font-size: 18px; color: var(--primary); }
+.modal-body { padding: 18px 22px; max-height: 60vh; overflow-y: auto; }
+.modal-foot { display: flex; gap: 10px; justify-content: flex-end; padding: 14px 22px; border-top: 1px solid var(--border); }
+
 /* ---------- Заявки ---------- */
 .msg-row { display: flex; gap: 16px; padding: 16px; border-bottom: 1px solid var(--border); }
 .msg-row:last-child { border-bottom: none; }

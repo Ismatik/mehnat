@@ -16,6 +16,7 @@ export const MSG: Record<string, Tri> = {
   account_disabled: { ru: "Учётная запись отключена. Обратитесь к администратору.", tg: "Ҳисоб ғайрифаъол аст. Ба маъмур муроҷиат кунед.", en: "Account is disabled. Contact the administrator." },
   credentials_required: { ru: "Введите почту и пароль", tg: "Почта ва гузарвожаро ворид кунед", en: "Enter email and password" },
   session_expired: { ru: "Сессия истекла — войдите снова", tg: "Сессия ба охир расид — аз нав ворид шавед", en: "Session expired — please log in again" },
+  too_many_attempts: { ru: "Слишком много неудачных попыток. Попробуйте позже.", tg: "Кӯшишҳои нодуруст хеле зиёданд. Баъдтар кӯшиш кунед.", en: "Too many failed attempts. Please try again later." },
   unauthorized: { ru: "Требуется вход", tg: "Вуруд лозим аст", en: "Login required" },
   forbidden_role: { ru: "Недостаточно прав", tg: "Ҳуқуқ нокифоя", en: "Insufficient permissions" },
   no_site_access: { ru: "Нет доступа к этому сайту", tg: "Ба ин сомона дастрасӣ нест", en: "No access to this site" },

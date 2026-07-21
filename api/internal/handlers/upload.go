@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/mehnat/api/internal/audit"
 	"github.com/mehnat/api/internal/httpx"
 	"github.com/mehnat/api/internal/middleware"
 )
@@ -67,5 +68,14 @@ func (h *Handlers) Upload(w http.ResponseWriter, r *http.Request) {
 	}
 
 	url := "/api/uploads/" + name
+
+	// аудит: что за поле/раздел загрузили (label передаёт фронт)
+	label := r.FormValue("label")
+	if label == "" {
+		label = header.Filename
+	}
+	h.auditContent(r, audit.ActionUpload, "upload", nil, label,
+		map[string]interface{}{"file": map[string]interface{}{"old": "", "new": url}})
+
 	httpx.JSON(w, http.StatusCreated, map[string]string{"url": url, "filename": name})
 }

@@ -130,10 +130,23 @@ export function deleteMessage(id: number) {
   return request<void>(adm(`/contact_messages/${id}`), { method: "DELETE" });
 }
 
+// ---- Журнал аудита (только чтение) ----
+export function listAudit(params: Record<string, string> = {}) {
+  const clean = Object.entries(params).filter(([, v]) => v) as [string, string][];
+  const qs = new URLSearchParams(clean).toString();
+  return request<Row[]>(adm(`/audit_log${qs ? `?${qs}` : ""}`));
+}
+
+// ---- Выход (фиксируется в аудите) ----
+export function logout() {
+  return request<void>("/auth/logout", { method: "POST" }).catch(() => {});
+}
+
 // ---- Загрузка файлов ----
-export async function uploadFile(file: File): Promise<{ url: string; filename: string }> {
+export async function uploadFile(file: File, label?: string): Promise<{ url: string; filename: string }> {
   const form = new FormData();
   form.append("file", file);
+  if (label) form.append("label", label); // для аудита: что за поле/раздел
   const token = getToken();
   const headers: Record<string, string> = {};
   if (token) headers["Authorization"] = `Bearer ${token}`;

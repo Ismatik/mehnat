@@ -37,6 +37,26 @@ services:
       timeout: 5s
       retries: 5
 
+  # Ежедневный бэкап БД (pg_dump + ротация). Дампы в volume backups_data.
+  # Ручной бэкап:      docker compose exec backup sh /backup.sh once
+  # Восстановление:    docker compose exec backup sh /backup.sh restore <файл>
+  backup:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      BACKUP_KEEP_DAYS: ${BACKUP_KEEP_DAYS:-14}
+      BACKUP_HOUR: ${BACKUP_HOUR:-3}
+    volumes:
+      - ./scripts/backup.sh:/backup.sh:ro
+      - backups_data:/backups
+    entrypoint: ["/bin/sh", "/backup.sh"]
+    depends_on:
+      db:
+        condition: service_healthy
+
   api:
     build:
       context: ./api
@@ -55,12 +75,32 @@ services:
       UPLOAD_DIR: /app/uploads
       SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL}
       SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD}
+      # защита входа
+      LOGIN_MAX_ATTEMPTS: ${LOGIN_MAX_ATTEMPTS:-5}
+      LOGIN_LOCKOUT_MINUTES: ${LOGIN_LOCKOUT_MINUTES:-15}
+      LOGIN_WINDOW_MINUTES: ${LOGIN_WINDOW_MINUTES:-15}
+      # уведомления (email); если NOTIFY_ENABLED!=true или SMTP не задан — не шлём
+      NOTIFY_ENABLED: ${NOTIFY_ENABLED:-false}
+      NOTIFY_EMAIL: ${NOTIFY_EMAIL:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      # имя compose-проекта — чтобы виджет статуса фильтровал свои контейнеры
+      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME:-mehnat}
     depends_on:
       db:
         condition: service_healthy
     volumes:
       # загруженные из админки файлы должны переживать пересборку контейнера
       - uploads_data:/app/uploads
+      # бэкапы — только чтение: виджет статуса показывает время последнего дампа
+      - backups_data:/backups:ro
+      # docker-сокет (read-only) — для статуса контейнеров в виджете суперадмина.
+      # Внутренний инструмент за авторизацией; при желании строку можно убрать —
+      # тогда секция «контейнеры» просто станет недоступной (available:false).
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     expose:
       - "${API_PORT}"
     healthcheck:
@@ -175,3 +215,4 @@ services:
 volumes:
   db_data:
   uploads_data:
+  backups_data:

@@ -16,6 +16,8 @@ import (
 	"github.com/mehnat/api/internal/auth"
 	"github.com/mehnat/api/internal/config"
 	"github.com/mehnat/api/internal/middleware"
+	"github.com/mehnat/api/internal/notify"
+	"github.com/mehnat/api/internal/ratelimit"
 	"github.com/mehnat/api/internal/resource"
 )
 
@@ -25,13 +27,21 @@ func claimsFromRequest(r *http.Request) *auth.Claims {
 }
 
 type Handlers struct {
-	Pool *pgxpool.Pool
-	Auth *auth.Manager
-	Cfg  config.Config
+	Pool    *pgxpool.Pool
+	Auth    *auth.Manager
+	Cfg     config.Config
+	Limiter *ratelimit.Limiter
+	Notify  *notify.Notifier
 }
 
 func New(pool *pgxpool.Pool, am *auth.Manager, cfg config.Config) *Handlers {
-	return &Handlers{Pool: pool, Auth: am, Cfg: cfg}
+	return &Handlers{
+		Pool:    pool,
+		Auth:    am,
+		Cfg:     cfg,
+		Limiter: ratelimit.FromEnv(),
+		Notify:  notify.FromEnv(),
+	}
 }
 
 // argFor превращает значение из тела запроса в (плейсхолдер, значение) с учётом типа колонки.

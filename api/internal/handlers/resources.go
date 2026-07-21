@@ -15,6 +15,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/jackc/pgx/v5"
 
+	"github.com/mehnat/api/internal/audit"
 	"github.com/mehnat/api/internal/httpx"
 	"github.com/mehnat/api/internal/middleware"
 	"github.com/mehnat/api/internal/resource"
@@ -142,6 +143,8 @@ func (h *Handlers) AdminCreate(w http.ResponseWriter, r *http.Request) {
 		httpx.Error(w, http.StatusBadRequest, "insert failed: "+err.Error())
 		return
 	}
+	row := rowFromJSON(out)
+	h.auditContent(r, audit.ActionCreate, def.Table, rowID(row), pageLabel(row), nil)
 	httpx.Raw(w, http.StatusCreated, out)
 }
 
@@ -165,28 +168,27 @@ func (h *Handlers) AdminUpdate(w http.ResponseWriter, r *http.Request) {
 		httpx.Error(w, http.StatusBadRequest, "invalid json body")
 		return
 	}
-	// проверка полноты переводов перед публикацией (на объединённой строке)
-	if def.PublicFlag != "" {
-		var existingRaw []byte
-		if err := h.Pool.QueryRow(r.Context(),
-			fmt.Sprintf("SELECT to_jsonb(t) FROM %s t WHERE id = $1", tbl), id).Scan(&existingRaw); err != nil {
-			if errors.Is(err, pgx.ErrNoRows) {
-				httpx.Error(w, http.StatusNotFound, "not found")
-				return
-			}
-			httpx.Error(w, http.StatusInternalServerError, "query failed")
+	// всегда читаем текущую строку — нужна и для diff (аудит), и для проверки публикации
+	var existingRaw []byte
+	if err := h.Pool.QueryRow(r.Context(),
+		fmt.Sprintf("SELECT to_jsonb(t) FROM %s t WHERE id = $1", tbl), id).Scan(&existingRaw); err != nil {
+		if errors.Is(err, pgx.ErrNoRows) {
+			httpx.Error(w, http.StatusNotFound, "not found")
 			return
 		}
-		var existing map[string]interface{}
-		_ = json.Unmarshal(existingRaw, &existing)
+		httpx.Error(w, http.StatusInternalServerError, "query failed")
+		return
+	}
+	existing := rowFromJSON(existingRaw)
 
+	// проверка полноты переводов перед публикацией (на объединённой строке)
+	if def.PublicFlag != "" {
 		willPublish := false
 		if raw, ok := body[def.PublicFlag]; ok {
 			_ = json.Unmarshal(raw, &willPublish)
 		} else if b, ok := existing[def.PublicFlag].(bool); ok {
 			willPublish = b
 		}
-
 		if willPublish {
 			merged := map[string]interface{}{}
 			for _, c := range def.Columns {
@@ -220,6 +222,23 @@ func (h *Handlers) AdminUpdate(w http.ResponseWriter, r *http.Request) {
 		httpx.Error(w, http.StatusBadRequest, "update failed: "+err.Error())
 		return
 	}
+
+	// аудит: diff + определение publish/unpublish
+	newRow := rowFromJSON(out)
+	diff := computeDiff(existing, newRow, def)
+	action := audit.ActionUpdate
+	if def.PublicFlag != "" {
+		oldPub, _ := existing[def.PublicFlag].(bool)
+		newPub, _ := newRow[def.PublicFlag].(bool)
+		if oldPub != newPub {
+			if newPub {
+				action = audit.ActionPublish
+			} else {
+				action = audit.ActionUnpublish
+			}
+		}
+	}
+	h.auditContent(r, action, def.Table, &id, pageLabel(newRow), diff)
 	httpx.Raw(w, http.StatusOK, out)
 }
 
@@ -237,6 +256,10 @@ func (h *Handlers) AdminDelete(w http.ResponseWriter, r *http.Request) {
 	s := middleware.SiteFrom(r.Context())
 	tbl := s.Table(def.Table)
 
+	// метку берём до удаления (для читаемого лога)
+	var beforeRaw []byte
+	_ = h.Pool.QueryRow(r.Context(), fmt.Sprintf("SELECT to_jsonb(t) FROM %s t WHERE id = $1", tbl), id).Scan(&beforeRaw)
+
 	ct, err := h.Pool.Exec(r.Context(), fmt.Sprintf("DELETE FROM %s WHERE id = $1", tbl), id)
 	if err != nil {
 		httpx.Error(w, http.StatusBadRequest, "delete failed: "+err.Error())
@@ -246,5 +269,6 @@ func (h *Handlers) AdminDelete(w http.ResponseWriter, r *http.Request) {
 		httpx.Error(w, http.StatusNotFound, "not found")
 		return
 	}
+	h.auditContent(r, audit.ActionDelete, def.Table, &id, pageLabel(rowFromJSON(beforeRaw)), nil)
 	w.WriteHeader(http.StatusNoContent)
 }

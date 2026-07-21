@@ -144,6 +144,39 @@ docker compose -f docker-compose.yml up -d --build
 (`up -d --build` не стирает). Полностью стираются данные только явным
 `docker compose down -v` — на проде так не делать.
 
+## Бэкапы БД
+
+Сервис `backup` (в `docker-compose.yml`) делает **ежедневный** `pg_dump`
+(с `--clean --if-exists`, сжатие gzip) в volume `backups_data` и чистит старые
+(ротация). Первый дамп — сразу при старте, далее каждый день в `BACKUP_HOUR:00`.
+Настройки в `.env`: `BACKUP_KEEP_DAYS` (сколько дней хранить, по умолч. 14),
+`BACKUP_HOUR` (час, 0–23). Отдельная настройка cron на хосте не нужна —
+планировщик внутри контейнера.
+
+```bash
+make backup                      # ручной бэкап сейчас
+make backups                     # список дампов (имя = дата/время)
+make restore FILE=mehnat_2026-07-21_030000.sql.gz   # восстановить БД из дампа
+docker compose logs backup       # лог бэкапов
+```
+
+Эквивалент без Makefile:
+```bash
+docker compose exec backup sh /backup.sh once
+docker compose exec backup ls -lh /backups
+docker compose exec backup sh /backup.sh restore <файл>
+```
+
+**Как откатиться, если удалили/испортили контент:** `make backups` → выбрать дамп
+до потери → `make restore FILE=<дамп>`. Восстановление **заменяет** текущее
+состояние БД содержимым дампа (dump с `--clean` удаляет и пересоздаёт объекты).
+
+Дампы — только на сервере (в volume), в git **не коммитятся** (`.gitignore`:
+`backups/`, `*.sql.gz`). Выгрузить дамп наружу вручную:
+```bash
+docker cp $(docker compose ps -q backup):/backups/<файл> ./   # скопировать на хост
+```
+
 ## Первый администратор
 
 Суперадмин создаётся автоматически при старте API из переменных окружения

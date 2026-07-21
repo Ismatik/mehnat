@@ -6,6 +6,7 @@ package handlers
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -13,6 +14,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/jackc/pgx/v5"
 
+	"github.com/mehnat/api/internal/audit"
 	"github.com/mehnat/api/internal/auth"
 	"github.com/mehnat/api/internal/httpx"
 )
@@ -107,6 +109,20 @@ func (h *Handlers) UserCreate(w http.ResponseWriter, r *http.Request) {
 		httpx.ErrCode(w, http.StatusBadRequest, "email_exists", "create failed (email may already exist)")
 		return
 	}
+	crow := rowFromJSON(out)
+	h.auditUser(r, audit.ActionUserCreate, rowID(crow), in.Email, map[string]map[string]interface{}{
+		"role":        {"new": crow["role"]},
+		"site_access": {"new": crow["site_access"]},
+	})
+	// уведомление суперадмину о новом пользователе (если настроено)
+	actorEmail := ""
+	if c := claimsFromRequest(r); c != nil {
+		actorEmail = c.Email
+	}
+	h.Notify.Notify("МЕХНАТ: создан новый пользователь", fmt.Sprintf(
+		"Создан пользователь: %s\nРоль: %v\nДоступ к сайтам: %v\nКем создан: %s",
+		in.Email, crow["role"], crow["site_access"], actorEmail,
+	))
 	httpx.Raw(w, http.StatusCreated, out)
 }
 
@@ -201,6 +217,12 @@ func (h *Handlers) UserUpdate(w http.ResponseWriter, r *http.Request) {
 		httpx.ErrCode(w, http.StatusBadRequest, "email_exists", "update failed (email may already exist)")
 		return
 	}
+	row := rowFromJSON(out)
+	email, _ := row["email"].(string)
+	h.auditUser(r, audit.ActionUserUpdate, &id, email, map[string]map[string]interface{}{
+		"role":        {"new": row["role"]},
+		"site_access": {"new": row["site_access"]},
+	})
 	httpx.Raw(w, http.StatusOK, out)
 }
 
@@ -215,6 +237,8 @@ func (h *Handlers) UserDelete(w http.ResponseWriter, r *http.Request) {
 		httpx.Error(w, http.StatusBadRequest, "cannot delete yourself")
 		return
 	}
+	var email string
+	_ = h.Pool.QueryRow(r.Context(), "SELECT email FROM users WHERE id = $1", id).Scan(&email)
 	ct, err := h.Pool.Exec(r.Context(), "DELETE FROM users WHERE id = $1", id)
 	if err != nil {
 		httpx.Error(w, http.StatusInternalServerError, "delete failed")
@@ -224,6 +248,7 @@ func (h *Handlers) UserDelete(w http.ResponseWriter, r *http.Request) {
 		httpx.Error(w, http.StatusNotFound, "not found")
 		return
 	}
+	h.auditUser(r, audit.ActionUserDelete, &id, email, nil)
 	w.WriteHeader(http.StatusNoContent)
 }
 

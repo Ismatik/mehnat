@@ -5,7 +5,7 @@
 // или заявки. Всё редактируемое содержимое сайта правится отсюда.
 
 import { useEffect, useMemo, useState } from "react";
-import { me, clearToken, getToken, SITE_KEY, type SessionUser } from "../lib/api";
+import { me, clearToken, getToken, logout as apiLogout, SITE_KEY, type SessionUser } from "../lib/api";
 import { BRAND } from "../lib/brand";
 import { RESOURCES } from "../lib/schema";
 import { UiLangProvider, useT } from "../components/uilang";
@@ -13,6 +13,7 @@ import Login from "../components/Login";
 import ResourceSection from "../components/ResourceSection";
 import SettingsSection from "../components/SettingsSection";
 import MessagesSection from "../components/MessagesSection";
+import AuditSection from "../components/AuditSection";
 
 const SITE_LABEL: Record<string, string> = {
   s1: "mmashvarat.tj",
@@ -46,6 +47,7 @@ function PageInner() {
   }, []);
 
   function logout() {
+    void apiLogout(); // фиксируем выход в аудите (использует текущий токен)
     clearToken();
     setSession(null);
   }
@@ -92,6 +94,9 @@ function Shell({ session, onLogout }: { session: SessionUser; onLogout: () => vo
           <button className={`side-link ${active === "__messages__" ? "active" : ""}`} onClick={() => pick("__messages__")}>
             <span className="side-icon">✉️</span> Заявки
           </button>
+          <button className={`side-link ${active === "__audit__" ? "active" : ""}`} onClick={() => pick("__audit__")}>
+            <span className="side-icon">📋</span> Логи
+          </button>
         </nav>
       </aside>
 
@@ -108,6 +113,8 @@ function Shell({ session, onLogout }: { session: SessionUser; onLogout: () => vo
             <SettingsSection onAuthError={onLogout} />
           ) : active === "__messages__" ? (
             <MessagesSection onAuthError={onLogout} />
+          ) : active === "__audit__" ? (
+            <AuditSection onAuthError={onLogout} />
           ) : activeDef ? (
             <ResourceSection key={activeDef.key} def={activeDef} onAuthError={onLogout} />
           ) : null}

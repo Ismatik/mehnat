@@ -22,6 +22,11 @@ api/uploads/
 # docker volumes / данные БД
 db_data/
 
+# дампы БД (бэкапы) — НЕ в git
+backups/
+*.sql.gz
+*.dump
+
 # os / IDE
 .DS_Store
 .idea/

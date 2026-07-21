@@ -3,12 +3,14 @@ package handlers
 // settings — key/value с JSONB-значением. Отдаём как единый объект {key: value}.
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 
+	"github.com/mehnat/api/internal/audit"
 	"github.com/mehnat/api/internal/httpx"
 	"github.com/mehnat/api/internal/middleware"
 )
@@ -48,6 +50,11 @@ func (h *Handlers) AdminSettingPut(w http.ResponseWriter, r *http.Request) {
 	if len(data) == 0 {
 		data = []byte("null")
 	}
+
+	// старое значение — для diff в аудите
+	var oldRaw []byte
+	_ = h.Pool.QueryRow(r.Context(), fmt.Sprintf("SELECT value FROM %s WHERE key = $1", tbl), key).Scan(&oldRaw)
+
 	q := fmt.Sprintf(
 		`INSERT INTO %s (key, value) VALUES ($1, $2::jsonb)
 		 ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value
@@ -58,6 +65,17 @@ func (h *Handlers) AdminSettingPut(w http.ResponseWriter, r *http.Request) {
 	if err := h.Pool.QueryRow(r.Context(), q, key, string(data)).Scan(&out); err != nil {
 		httpx.Error(w, http.StatusBadRequest, "save failed: "+err.Error())
 		return
+	}
+
+	// аудит: логируем изменение настройки с diff по ключу (было→стало)
+	var oldV, newV interface{}
+	_ = json.Unmarshal(oldRaw, &oldV)
+	_ = json.Unmarshal(data, &newV)
+	ob, _ := json.Marshal(oldV)
+	nb, _ := json.Marshal(newV)
+	if string(ob) != string(nb) {
+		diff := map[string]map[string]interface{}{key: {"old": oldV, "new": newV}}
+		h.auditContent(r, audit.ActionUpdate, "settings", nil, key, diff)
 	}
 	httpx.Raw(w, http.StatusOK, out)
 }

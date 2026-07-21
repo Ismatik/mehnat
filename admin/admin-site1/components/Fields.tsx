@@ -72,7 +72,7 @@ function I18nInput({
 }
 
 // ---- Изображение ----
-function ImageInput({ value, onChange, aspect }: { value: string; onChange: (v: string) => void; aspect?: number }) {
+function ImageInput({ value, onChange, aspect, label }: { value: string; onChange: (v: string) => void; aspect?: number; label?: string }) {
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [cropFile, setCropFile] = useState<File | null>(null);
@@ -94,7 +94,7 @@ function ImageInput({ value, onChange, aspect }: { value: string; onChange: (v: 
     setBusy(true);
     setErr(null);
     try {
-      const { url } = await uploadFile(file);
+      const { url } = await uploadFile(file, label);
       onChange(url);
     } catch (x) {
       setErr(x instanceof ApiError ? x.message : "Ошибка загрузки");
@@ -143,7 +143,7 @@ function ImageInput({ value, onChange, aspect }: { value: string; onChange: (v: 
 }
 
 // ---- Галерея / коллаж ----
-function GalleryInput({ value, onChange, aspect }: { value: string[]; onChange: (v: string[]) => void; aspect?: number }) {
+function GalleryInput({ value, onChange, aspect, label }: { value: string[]; onChange: (v: string[]) => void; aspect?: number; label?: string }) {
   const list = Array.isArray(value) ? value : [];
   const setAt = (i: number, u: string) => onChange(list.map((x, k) => (k === i ? u : x)));
   const add = () => onChange([...list, ""]);
@@ -166,7 +166,7 @@ function GalleryInput({ value, onChange, aspect }: { value: string[]; onChange: 
             <button type="button" className="mini" onClick={() => move(i, 1)} disabled={i === list.length - 1}>↓</button>
             <button type="button" className="mini danger" onClick={() => remove(i)}>✕</button>
           </div>
-          <ImageInput value={u} onChange={(x) => setAt(i, x)} aspect={aspect} />
+          <ImageInput value={u} onChange={(x) => setAt(i, x)} aspect={aspect} label={label} />
         </div>
       ))}
       <button type="button" className="btn btn-ghost btn-sm" onClick={add}>+ Добавить изображение</button>
@@ -353,9 +353,9 @@ export function FieldEditor({
       );
     }
     case "image":
-      return <ImageInput value={value ?? ""} onChange={onChange} aspect={field.aspect} />;
+      return <ImageInput value={value ?? ""} onChange={onChange} aspect={field.aspect} label={field.label} />;
     case "gallery":
-      return <GalleryInput value={value} onChange={onChange} aspect={field.aspect} />;
+      return <GalleryInput value={value} onChange={onChange} aspect={field.aspect} label={field.label} />;
     case "i18n-list":
       return <I18nListInput value={value} onChange={onChange} itemLabel={field.itemLabel} />;
     case "repeater":
