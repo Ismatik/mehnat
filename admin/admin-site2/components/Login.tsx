@@ -1,0 +1,64 @@
+"use client";
+
+import { useState } from "react";
+import { login, ApiError, SITE_KEY, type SessionUser } from "../lib/api";
+import { BRAND } from "../lib/brand";
+
+const SITE_LABEL: Record<string, string> = {
+  s1: "Сайт 1 · mmashvarat.tj",
+  s2: "Сайт 2 · a-khorijakor.tj",
+};
+
+export default function Login({ onSuccess }: { onSuccess: (u: SessionUser) => void }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setBusy(true);
+    try {
+      const user = await login(email.trim(), password);
+      const allowed = user.role === "superadmin" || user.site_access.includes(SITE_KEY);
+      if (!allowed) {
+        setError("У вашей учётной записи нет доступа к этому сайту.");
+        setBusy(false);
+        return;
+      }
+      onSuccess(user);
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "Не удалось войти");
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="login-screen">
+      <div className="login-box">
+        <div className="logo-line">
+          <div className="mark" style={{ background: BRAND.color }}>{BRAND.letter}</div>
+          <h1>Панель управления контентом</h1>
+          <div className="sub">{SITE_LABEL[SITE_KEY] || SITE_KEY}</div>
+        </div>
+        <div className="card card-pad">
+          {error && <div className="alert alert-err">{error}</div>}
+          <form onSubmit={submit}>
+            <label className="field">
+              <span>Электронная почта</span>
+              <input className="input" type="email" autoComplete="username" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </label>
+            <label className="field">
+              <span>Пароль</span>
+              <input className="input" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            </label>
+            <button className="btn btn-primary" style={{ width: "100%" }} disabled={busy}>
+              {busy ? "Вход…" : "Войти"}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}

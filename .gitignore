@@ -1,0 +1,28 @@
+# env (секреты — НЕ коммитим; коммитим только .env.example)
+.env
+.env.local
+.env.*.local
+
+# node
+node_modules/
+.next/
+out/
+*.log
+npm-debug.log*
+
+# go
+api/server
+*.exe
+
+# загруженные из админки картинки (в проде — docker volume uploads_data;
+# на всякий случай игнорируем и возможные локальные папки)
+uploads/
+api/uploads/
+
+# docker volumes / данные БД
+db_data/
+
+# os / IDE
+.DS_Store
+.idea/
+.vscode/

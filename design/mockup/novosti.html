@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Новости — Центры консультирования и подготовки трудовых мигрантов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'PT Sans',system-ui,sans-serif;color:#14233a;background:#fff;}
+  ::selection{background:#0b3b6b;color:#fff;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .clk{cursor:pointer;}
+  .news-card{transition:box-shadow .15s,transform .15s;}
+  .news-card:hover{box-shadow:0 10px 26px rgba(11,59,107,.13);transform:translateY(-2px);}
+  .nav a:hover{color:#0b3b6b;}
+  .burger{display:none;border:1px solid #c3cedd;background:#fff;border-radius:4px;padding:8px 12px;font-size:18px;cursor:pointer;line-height:1;color:#0b3b6b;}
+  .submit:hover{background:#bd2417!important;}
+
+  @media(max-width:980px){
+    .news-grid{grid-template-columns:repeat(2,1fr)!important;}
+    .feedback{grid-template-columns:1fr!important;}
+    .feedback-photo{min-height:220px!important;}
+    .nav{display:none!important;}
+    .burger{display:inline-flex;}
+    .mast{position:relative;flex-wrap:wrap;}
+    .nav.open{display:flex!important;flex-direction:column;align-items:flex-start;gap:0!important;width:100%;}
+    .nav.open>span{padding:11px 0;width:100%;}
+  }
+  @media(max-width:720px){
+    .wrap{padding-left:20px!important;padding-right:20px!important;}
+    .news-grid{grid-template-columns:1fr!important;}
+    .hero-banner{min-height:300px!important;}
+    .hero-banner h1{font-size:34px!important;}
+    .foot-row{flex-direction:column;align-items:flex-start!important;}
+  }
+</style>
+</head>
+<body>
+
+<!-- utility bar -->
+<div style="background:#08305a;color:#cfe0f2;font-size:13px">
+  <div class="wrap" style="padding:8px 40px;display:flex;align-items:center;justify-content:space-between">
+    <span style="display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:#7ec48a"></span>Государственное учреждение · Республика Таджикистан</span>
+    <span style="display:flex;align-items:center;gap:20px">
+      <span style="display:flex;align-items:center;gap:6px"><span style="width:18px;height:18px;border-radius:3px;background:#1877f2;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px">f</span>Facebook</span>
+      <span style="display:flex;gap:9px;align-items:center"><strong style="color:#fff">RU</strong><span style="opacity:.55;cursor:pointer">ТҶ</span><span style="opacity:.55;cursor:pointer">EN</span></span>
+    </span>
+  </div>
+</div>
+
+<!-- masthead -->
+<div style="background:#fff;border-bottom:3px solid #0b3b6b">
+  <div class="wrap mast" style="padding:16px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="index.html" style="display:flex;align-items:center;gap:14px;flex:none">
+      <img src="logo.png" alt="Миграционная служба Республики Таджикистан" style="width:58px;height:58px;object-fit:contain;flex:none;display:block">
+      <div style="max-width:520px">
+        <div style="font-family:'PT Serif',serif;font-weight:700;font-size:15.5px;color:#0b3b6b;line-height:1.25">Центры консультирования и подготовки трудовых мигрантов перед выездом</div>
+        <div style="font-size:11.5px;color:#7286a0;letter-spacing:.03em;margin-top:2px">Государственное учреждение</div>
+      </div>
+    </a>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+    <div class="nav" id="nav" style="display:flex;align-items:center;gap:20px;font-size:14px;font-weight:700;color:#23364f;flex:none">
+      <a href="index.html">О Центре</a><span style="color:#0b3b6b">Новости</span><a href="o-nas.html">О нас</a>
+      <a href="uslugi.html" style="display:flex;align-items:center;gap:4px">Страна назначения <span style="font-size:10px;color:#9aa9bd">▾</span></a>
+      <a href="kontakty.html">Контакты</a>
+      <span style="display:flex;align-items:center;gap:7px;padding-left:6px;cursor:pointer"><span style="width:26px;height:18px;border-radius:2px;overflow:hidden;display:flex;flex-direction:column;flex:none"><span style="flex:1;background:#fff"></span><span style="flex:1;background:#0039a6"></span><span style="flex:1;background:#d52b1e"></span></span><span style="font-size:10px;color:#9aa9bd">▾</span></span>
+      <a href="index.html#reg" class="cab clk" style="background:#0b3b6b;color:#fff;padding:10px 18px;border-radius:4px;font-size:13.5px">Зарегистрируйтесь в Центре</a>
+    </div>
+  </div>
+</div>
+
+<!-- hero banner -->
+<div class="hero-banner" style="position:relative;min-height:420px;background:#0b3b6b;display:flex;align-items:center;justify-content:center;overflow:hidden">
+  <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.06) 0 18px,rgba(255,255,255,.02) 18px 36px)"></div>
+  <span style="position:absolute;top:18px;left:50%;transform:translateX(-50%);font-family:ui-monospace,monospace;font-size:12px;color:#9fc0e4;letter-spacing:.05em">[ фото по ширине — вставит разработчик ]</span>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,32,58,.45) 0%,rgba(8,32,58,.7) 100%)"></div>
+  <div style="position:relative;z-index:1;text-align:center;color:#fff">
+    <h1 style="font-family:'PT Serif',serif;font-size:46px;font-weight:700;letter-spacing:.02em;margin:0 0 18px">НОВОСТИ</h1>
+    <div style="display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(2px);padding:10px 22px;border-radius:30px;font-size:14px;font-weight:700">
+      <a href="index.html" style="color:#cfe0f2">Асосӣ</a><span style="color:#7ea6d6">»</span><span style="color:#fff">Новости</span>
+    </div>
+  </div>
+</div>
+
+<!-- news grid, 3 per row -->
+<div class="wrap" style="padding:52px 40px 8px">
+  <div class="news-grid" id="news-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px"></div>
+</div>
+
+<!-- feedback split section -->
+<div class="wrap" style="margin-top:52px;padding:0 40px">
+  <div class="feedback" style="display:grid;grid-template-columns:1fr 1.15fr;border-radius:16px;overflow:hidden;box-shadow:0 14px 40px rgba(11,59,107,.18)">
+    <!-- photo -->
+    <div class="feedback-photo" style="position:relative;min-height:440px;background-image:repeating-linear-gradient(135deg,#c7d4e4 0 16px,#d6e0ec 16px 32px);display:flex;align-items:center;justify-content:center">
+      <span style="font-family:ui-monospace,monospace;font-size:12px;color:#7286a0">[ фото / консультация ]</span>
+    </div>
+    <!-- form -->
+    <div id="form-wrap" style="background:#0b3b6b;color:#fff;padding:46px 48px;display:flex;flex-direction:column;justify-content:center"></div>
+  </div>
+</div>
+
+<!-- footer -->
+<div style="background:#0b3b6b;color:#fff;margin-top:52px">
+  <div class="wrap foot-row" style="padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap">
+    <span class="clk" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;font-weight:700;font-size:14px;letter-spacing:.03em;padding:13px 32px;border-radius:30px">Контакты</span>
+    <div style="display:flex;align-items:center;gap:14px">
+      <span class="clk" style="width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px">f</span>
+      <span class="clk" style="width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:17px">◉</span>
+      <span class="clk" style="width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:15px">▶</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <span style="width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:19px;flex:none">☎</span>
+      <div><div style="font-size:12.5px;color:#9fc0e4">Телефоны для связи</div><div style="font-family:'PT Serif',serif;font-size:19px;font-weight:700">225-05-75 | 225-02-21</div></div>
+    </div>
+  </div>
+  <div style="border-top:1px solid rgba(255,255,255,.12)"><div class="wrap" style="padding:16px 40px;text-align:center;color:#9fc0e4;font-size:12.5px">Ҳуқуқҳо ҳимоя шудаанд © All rights reserved 2026</div></div>
+</div>
+
+<script>
+  /* ---- data (портировано из шаблона Design Composer «Новости») ---- */
+  const news = [
+    { title: 'Информационно-просветительская работа в городе Исфара', date: '19.04.2024', time: '12:15' },
+    { title: 'Проведение информационно-просветительской работы в городе Канибадам', date: '19.04.2024', time: '12:14' },
+    { title: 'Ярмарка свободных вакансий в Центре района Темурмалик', date: '19.04.2024', time: '12:12' },
+    { title: 'Встреча с жителями джамоата Понгози района Ашт', date: '19.04.2024', time: '11:56' },
+    { title: 'Обучающий курс перед выездом: практические навыки', date: '18.04.2024', time: '16:30' },
+    { title: 'Осторожно: мошенники под видом сотрудников Центра', date: '17.04.2024', time: '09:45' },
+  ];
+
+  /* ---- news grid ---- */
+  document.getElementById('news-grid').innerHTML = news.map(n => `
+    <div class="news-card clk" style="border:1px solid #e6ecf3;border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 2px 10px rgba(11,59,107,.05);display:flex;flex-direction:column">
+      <div style="height:210px;background-image:repeating-linear-gradient(135deg,#e4ebf3 0 14px,#eef3f9 14px 28px);display:flex;align-items:center;justify-content:center;color:#8ba1bd;font-size:24px;position:relative">
+        📷
+        <span style="position:absolute;top:14px;right:14px;background:#5b8def;color:#fff;font-size:11.5px;font-weight:700;padding:5px 14px;border-radius:16px;letter-spacing:.02em">Новости</span>
+      </div>
+      <div style="padding:22px 22px 0;flex:1">
+        <div style="font-family:'PT Serif',serif;font-size:16.5px;font-weight:700;color:#1b2c44;line-height:1.35">${n.title}</div>
+      </div>
+      <div style="padding:16px 22px 20px;margin-top:14px;border-top:1px solid #eef2f7;display:flex;align-items:center;gap:10px;font-size:13px;color:#8798ad;font-weight:700">
+        <span>${n.date}</span><span style="color:#c8d3e0">•</span><span>${n.time}</span>
+      </div>
+    </div>`).join('');
+
+  /* ---- feedback form (sent / notSent state) ---- */
+  const state = { name: '', email: '', message: '', sent: false };
+  const formWrap = document.getElementById('form-wrap');
+
+  function renderForm(){
+    if (state.sent){
+      formWrap.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:16px">
+          <div style="width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;display:flex;align-items:center;justify-content:center;font-size:30px">✓</div>
+          <div style="font-family:'PT Serif',serif;font-size:26px;font-weight:700">Спасибо за обращение!</div>
+          <div style="font-size:15px;color:#cfe0f2;line-height:1.55;max-width:380px">Мы получили ваше сообщение и свяжемся с вами в ближайшее время.</div>
+          <span id="reset" class="clk" style="margin-top:4px;font-size:14.5px;color:#fff;font-weight:700;text-decoration:underline;text-underline-offset:3px">Отправить ещё одно →</span>
+        </div>`;
+      document.getElementById('reset').onclick = () => {
+        state.sent = false; state.name = ''; state.email = ''; state.message = '';
+        renderForm();
+      };
+      return;
+    }
+    formWrap.innerHTML = `
+      <div style="font-family:'PT Serif',serif;font-size:30px;font-weight:700;letter-spacing:.01em">Связаться с нами</div>
+      <div style="width:64px;height:4px;background:#d52b1e;border-radius:3px;margin:14px 0 26px"></div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <input id="f-name" placeholder="Имя:" style="border:none;border-radius:30px;padding:16px 24px;font-size:15px;font-family:inherit;color:#1b2c44;outline:none;background:#fff" />
+        <input id="f-email" placeholder="Почта:" style="border:none;border-radius:30px;padding:16px 24px;font-size:15px;font-family:inherit;color:#1b2c44;outline:none;background:#fff" />
+        <textarea id="f-message" placeholder="Сообщение:" style="border:none;border-radius:20px;padding:16px 24px;font-size:15px;font-family:inherit;color:#1b2c44;outline:none;background:#fff;min-height:130px;resize:vertical"></textarea>
+      </div>
+      <button id="submit" class="submit" style="margin-top:22px;background:#d52b1e;color:#fff;border:none;border-radius:30px;padding:16px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px">Отправить <span style="font-size:17px">→</span></button>`;
+
+    const nameEl = document.getElementById('f-name');
+    const emailEl = document.getElementById('f-email');
+    const msgEl = document.getElementById('f-message');
+    nameEl.value = state.name; emailEl.value = state.email; msgEl.value = state.message;
+    nameEl.oninput = e => state.name = e.target.value;
+    emailEl.oninput = e => state.email = e.target.value;
+    msgEl.oninput = e => state.message = e.target.value;
+    document.getElementById('submit').onclick = () => { state.sent = true; renderForm(); };
+  }
+  renderForm();
+
+  /* ---- mobile menu ---- */
+  document.getElementById('burger').addEventListener('click', () =>
+    document.getElementById('nav').classList.toggle('open'));
+</script>
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Центры консультирования и подготовки трудовых мигрантов перед выездом</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'PT Sans',system-ui,sans-serif;color:#14233a;background:#fff;}
+  ::selection{background:#0b3b6b;color:#fff;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;}
+  .clk{cursor:pointer;}
+  .hov-card{transition:border-color .15s,box-shadow .15s,transform .15s;}
+  .hov-card:hover{border-color:#0b3b6b;box-shadow:0 6px 18px rgba(11,59,107,.1);}
+  .nav a:hover{color:#0b3b6b;}
+  .burger{display:none;border:1px solid #c3cedd;background:#fff;border-radius:4px;padding:8px 12px;font-size:18px;cursor:pointer;line-height:1;color:#0b3b6b;}
+
+  @media(max-width:980px){
+    .hero-grid{grid-template-columns:1fr!important;}
+    .md-grid{grid-template-columns:1fr!important;}
+    .grid-4{grid-template-columns:repeat(2,1fr)!important;}
+    .grid-2{grid-template-columns:1fr!important;}
+    .foot-grid{grid-template-columns:1fr 1fr!important;}
+    .nav{display:none!important;}
+    .burger{display:inline-flex;}
+    .mast{position:relative;flex-wrap:wrap;}
+    .nav.open{display:flex!important;flex-direction:column;align-items:flex-start;gap:0!important;width:100%;}
+    .nav.open span{padding:11px 0;width:100%;}
+    .nav.open .cab{margin-top:8px;width:max-content;}
+  }
+  @media(max-width:720px){
+    .wrap{padding-left:20px!important;padding-right:20px!important;}
+    .grid-3{grid-template-columns:1fr!important;}
+    .grid-4{grid-template-columns:1fr!important;}
+    .foot-grid{grid-template-columns:1fr!important;}
+    .hero-slide{min-height:360px!important;}
+    .contacts{flex-direction:column;align-items:flex-start!important;}
+  }
+</style>
+</head>
+<body>
+
+<!-- utility bar -->
+<div style="background:#08305a;color:#cfe0f2;font-size:13px">
+  <div class="wrap" style="padding:8px 40px;display:flex;align-items:center;justify-content:space-between">
+    <span style="display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:#7ec48a"></span>Государственное учреждение · Республика Таджикистан</span>
+    <span style="display:flex;align-items:center;gap:20px">
+      <span style="display:flex;align-items:center;gap:6px"><span style="width:18px;height:18px;border-radius:3px;background:#1877f2;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px">f</span>Facebook</span>
+      <span style="display:flex;gap:9px;align-items:center"><strong style="color:#fff">RU</strong><span style="opacity:.55;cursor:pointer">ТҶ</span><span style="opacity:.55;cursor:pointer">EN</span></span>
+    </span>
+  </div>
+</div>
+
+<!-- masthead -->
+<div style="background:#fff;border-bottom:3px solid #0b3b6b">
+  <div class="wrap mast" style="padding:16px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <div style="display:flex;align-items:center;gap:14px;flex:none">
+      <img src="logo.png" alt="Миграционная служба Республики Таджикистан" style="width:58px;height:58px;object-fit:contain;flex:none;display:block">
+      <div style="max-width:520px">
+        <div style="font-family:'PT Serif',serif;font-weight:700;font-size:15.5px;color:#0b3b6b;line-height:1.25">Центры консультирования и подготовки трудовых мигрантов перед выездом</div>
+        <div style="font-size:11.5px;color:#7286a0;letter-spacing:.03em;margin-top:2px">Государственное учреждение</div>
+      </div>
+    </div>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+    <div class="nav" id="nav" style="display:flex;align-items:center;gap:20px;font-size:14px;font-weight:700;color:#23364f;flex:none">
+      <span style="color:#0b3b6b">О Центре</span><a href="novosti.html">Новости</a><a href="o-nas.html">О нас</a>
+      <a href="uslugi.html" style="display:flex;align-items:center;gap:4px">Страна назначения <span style="font-size:10px;color:#9aa9bd">▾</span></a>
+      <a href="kontakty.html">Контакты</a>
+      <span style="display:flex;align-items:center;gap:7px;padding-left:6px;cursor:pointer"><span style="width:26px;height:18px;border-radius:2px;overflow:hidden;display:flex;flex-direction:column;flex:none"><span style="flex:1;background:#fff"></span><span style="flex:1;background:#0039a6"></span><span style="flex:1;background:#d52b1e"></span></span><span style="font-size:10px;color:#9aa9bd">▾</span></span>
+      <a href="index.html#reg" class="cab clk" style="background:#0b3b6b;color:#fff;padding:10px 18px;border-radius:4px;font-size:13.5px">Зарегистрируйтесь в Центре</a>
+    </div>
+  </div>
+</div>
+
+<!-- hero: slider (left) + president static (right) -->
+<div style="background:#0b3b6b;color:#fff">
+  <div class="wrap hero-grid" style="padding:0;display:grid;grid-template-columns:1.15fr .85fr">
+    <!-- slider with overlaid headline -->
+    <div id="heroSlider" class="hero-slide" style="position:relative;min-height:460px;display:flex;align-items:flex-end;overflow:hidden">
+      <!-- slides -->
+      <div class="hero-item" data-hero style="position:absolute;inset:0;opacity:1;transition:opacity .7s ease;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.08) 0 16px,rgba(255,255,255,.03) 16px 32px)">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,32,58,.1) 0%,rgba(8,32,58,.55) 55%,rgba(8,32,58,.9) 100%)"></div>
+        <div style="position:absolute;left:0;bottom:0;z-index:1;padding:40px 44px 52px">
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);padding:6px 13px;border-radius:30px;font-size:12.5px;letter-spacing:.02em"><span style="width:7px;height:7px;border-radius:50%;background:#7ec48a"></span>Все услуги бесплатны</div>
+          <h1 style="font-family:'PT Serif',serif;font-size:33px;line-height:1.18;margin:16px 0 12px;font-weight:700;max-width:520px">Собираетесь на работу за границу? Начните с безопасного шага.</h1>
+          <p style="font-size:15.5px;line-height:1.6;color:#e2edf8;margin:0 0 22px;max-width:480px">Мы — государственный Центр. Помогаем гражданам Таджикистана уехать на работу законно и безопасно.</p>
+          <span class="clk" style="display:inline-block;background:#fff;color:#0b3b6b;font-weight:700;padding:13px 26px;border-radius:5px;font-size:15px">Узнать, с чего начать →</span>
+        </div>
+      </div>
+      <div class="hero-item" data-hero style="position:absolute;inset:0;opacity:0;transition:opacity .7s ease;background-image:repeating-linear-gradient(45deg,rgba(126,196,138,.10) 0 18px,rgba(255,255,255,.02) 18px 36px)">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,32,58,.15) 0%,rgba(8,32,58,.6) 55%,rgba(8,32,58,.92) 100%)"></div>
+        <div style="position:absolute;left:0;bottom:0;z-index:1;padding:40px 44px 52px">
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);padding:6px 13px;border-radius:30px;font-size:12.5px;letter-spacing:.02em"><span style="width:7px;height:7px;border-radius:50%;background:#7ec48a"></span>Официально и бесплатно</div>
+          <h1 style="font-family:'PT Serif',serif;font-size:33px;line-height:1.18;margin:16px 0 12px;font-weight:700;max-width:520px">Проверенные работодатели и честные условия труда за рубежом.</h1>
+          <p style="font-size:15.5px;line-height:1.6;color:#e2edf8;margin:0 0 22px;max-width:480px">Каждая вакансия проходит проверку. Никаких посредников и скрытых платежей — только законные каналы трудоустройства.</p>
+          <span class="clk" style="display:inline-block;background:#fff;color:#0b3b6b;font-weight:700;padding:13px 26px;border-radius:5px;font-size:15px">Смотреть страны →</span>
+        </div>
+      </div>
+      <div class="hero-item" data-hero style="position:absolute;inset:0;opacity:0;transition:opacity .7s ease;background-image:repeating-linear-gradient(135deg,rgba(213,43,30,.10) 0 18px,rgba(255,255,255,.02) 18px 36px)">
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,32,58,.15) 0%,rgba(8,32,58,.6) 55%,rgba(8,32,58,.92) 100%)"></div>
+        <div style="position:absolute;left:0;bottom:0;z-index:1;padding:40px 44px 52px">
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);padding:6px 13px;border-radius:30px;font-size:12.5px;letter-spacing:.02em"><span style="width:7px;height:7px;border-radius:50%;background:#f0a35a"></span>Защита от мошенников</div>
+          <h1 style="font-family:'PT Serif',serif;font-size:33px;line-height:1.18;margin:16px 0 12px;font-weight:700;max-width:520px">Не дайте себя обмануть. Консультируйтесь в государственном Центре.</h1>
+          <p style="font-size:15.5px;line-height:1.6;color:#e2edf8;margin:0 0 22px;max-width:480px">Бесплатные консультации, помощь с документами и защита ваших прав на всех этапах трудоустройства.</p>
+          <span class="clk" style="display:inline-block;background:#fff;color:#0b3b6b;font-weight:700;padding:13px 26px;border-radius:5px;font-size:15px">Получить консультацию →</span>
+        </div>
+      </div>
+      <!-- dots -->
+      <div style="position:absolute;right:24px;bottom:22px;display:flex;gap:8px;z-index:2">
+        <span class="hero-dot clk" data-go="0" style="width:26px;height:5px;border-radius:3px;background:#fff"></span>
+        <span class="hero-dot clk" data-go="1" style="width:26px;height:5px;border-radius:3px;background:rgba(255,255,255,.4)"></span>
+        <span class="hero-dot clk" data-go="2" style="width:26px;height:5px;border-radius:3px;background:rgba(255,255,255,.4)"></span>
+      </div>
+      <div class="clk" data-prev style="position:absolute;top:24px;right:60px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center;font-size:17px;z-index:2">‹</div>
+      <div class="clk" data-next style="position:absolute;top:24px;right:18px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center;font-size:17px;z-index:2">›</div>
+    </div>
+    <!-- president static -->
+    <div style="background:#08305a;padding:36px 40px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;border-left:1px solid rgba(255,255,255,.1)">
+      <img src="president.png" alt="Президент Республики Таджикистан" style="width:172px;height:214px;border-radius:6px;border:1px solid rgba(255,255,255,.25);object-fit:cover;object-position:50% 20%;flex:none;display:block">
+      <div>
+        <div style="font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:#9fc0e4;font-weight:700;margin-bottom:8px">Президент Республики Таджикистан</div>
+        <div style="font-family:'PT Serif',serif;font-size:16px;color:#eaf2fb;line-height:1.5;max-width:340px">Послания и выступления Основателя мира и национального единства — Лидера нации</div>
+      </div>
+      <div style="margin-top:auto;border-top:1px solid rgba(255,255,255,.12);padding-top:16px;width:100%">
+        <a href="https://www.president.tj" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;color:#fff;font-weight:700;font-size:14.5px">www.president.tj <span style="color:#9fc0e4">→</span></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- news -->
+<div class="wrap" style="padding:44px 40px 8px">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px">
+    <div style="font-family:'PT Serif',serif;font-size:26px;font-weight:700;color:#0b3b6b">Новости</div>
+    <a href="novosti.html" style="font-size:14px;font-weight:700;color:#0b3b6b">Все новости →</a>
+  </div>
+  <div class="grid-3" id="news-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px"></div>
+</div>
+
+<!-- countries master-detail -->
+<div class="wrap" style="padding:44px 40px 8px">
+  <div style="font-family:'PT Serif',serif;font-size:26px;font-weight:700;color:#0b3b6b">Куда можно поехать</div>
+  <div style="font-size:14.5px;color:#5a6b80;margin:6px 0 20px">Выберите страну — узнайте условия, реальный заработок и порядок выезда.</div>
+
+  <div class="md-grid" style="display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start">
+    <!-- vertical list -->
+    <div style="display:flex;flex-direction:column;gap:9px">
+      <div id="country-list" style="display:flex;flex-direction:column;gap:9px"></div>
+      <div style="font-size:13px;color:#8798ad;margin-top:6px">+ Добавляется через админ-панель</div>
+    </div>
+    <!-- detail -->
+    <div id="country-detail" style="border:1px solid #e0e7f0;border-radius:8px;overflow:hidden;background:#fff;min-height:360px"></div>
+  </div>
+</div>
+
+<!-- help -->
+<div class="wrap" style="padding:44px 40px 8px">
+  <div style="font-family:'PT Serif',serif;font-size:26px;font-weight:700;color:#0b3b6b;margin-bottom:18px">Чем мы вам поможем</div>
+  <div class="grid-4" id="help-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px"></div>
+</div>
+
+<!-- warning -->
+<div class="wrap" style="padding:36px 40px 8px">
+  <div style="background:#fdf4e7;border:1px solid #eecb92;border-left:5px solid #d68a1e;border-radius:7px;padding:22px 26px;display:flex;gap:18px;align-items:flex-start">
+    <div style="width:40px;height:40px;border-radius:50%;background:#d68a1e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;flex:none">⚠</div>
+    <div>
+      <div style="font-family:'PT Serif',serif;font-size:19px;font-weight:700;color:#8a5a12;margin-bottom:6px">Никому не платите за наши услуги</div>
+      <div style="font-size:14px;color:#6b5228;line-height:1.55;max-width:820px">Государственный Центр никогда не берёт денег. Если кто-то обещает устроить вас на работу «через Центр» за плату — это обман. Не отдавайте посредникам деньги, паспорт или документы. Сначала проверьте у нас.</div>
+      <div class="clk" style="font-size:13.5px;color:#8a5a12;font-weight:700;margin-top:12px">Как распознать обман →</div>
+    </div>
+  </div>
+</div>
+
+<!-- registration + telegram -->
+<div id="reg" class="wrap" style="padding:44px 40px;scroll-margin-top:20px">
+  <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <div style="background:#0b3b6b;color:#fff;border-radius:8px;padding:30px 32px;display:flex;align-items:center;gap:24px">
+      <div style="flex:1">
+        <div style="font-family:'PT Serif',serif;font-size:21px;font-weight:700;margin-bottom:8px">Зарегистрируйтесь в Центре</div>
+        <div style="font-size:13.5px;color:#cfe0f2;line-height:1.55;margin-bottom:18px">Полный доступ к услугам Центра, актуальная информация и поддержка на каждом этапе. Бесплатно, ваши данные под защитой государства.</div>
+        <span class="clk" style="display:inline-block;background:#fff;color:#0b3b6b;font-weight:700;padding:11px 22px;border-radius:5px;font-size:14px">Зарегистрируйтесь в Центре</span>
+      </div>
+      <div style="text-align:center;flex:none">
+        <img src="qr-register.png" alt="QR-код для регистрации в Центре" style="width:96px;height:96px;border-radius:6px;background:#fff;padding:5px;object-fit:contain;display:block">
+        <div style="font-size:11px;color:#9fc0e4;margin-top:8px;max-width:96px">Сканируйте, чтобы зарегистрироваться</div>
+      </div>
+    </div>
+    <div style="background:#eef3f9;border:1px solid #dbe5f1;border-radius:8px;padding:30px 32px;display:flex;align-items:center;gap:24px">
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><span style="width:34px;height:34px;border-radius:8px;background:#229ed9;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px">✈</span><div style="font-family:'PT Serif',serif;font-size:21px;font-weight:700;color:#0b3b6b">Наш Telegram</div></div>
+        <div style="font-size:13.5px;color:#5a6b80;line-height:1.55;margin-bottom:18px">Вступайте в наш Telegram — задавайте вопросы и получайте ответы от Центра.</div>
+        <span class="clk" style="display:inline-block;background:#229ed9;color:#fff;font-weight:700;padding:11px 22px;border-radius:5px;font-size:14px">@____________</span>
+      </div>
+      <div style="text-align:center;flex:none">
+        <div style="width:96px;height:96px;border-radius:6px;background:#fff;border:1px solid #dbe5f1;display:flex;align-items:center;justify-content:center;color:#8ba1bd;font-size:30px">☷</div>
+        <div style="font-size:11px;color:#8798ad;margin-top:8px;max-width:96px">Сканируйте, чтобы вступить</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- contacts CTA -->
+<div style="background:#f4f7fb;border-top:1px solid #e2e9f2">
+  <div class="wrap contacts" style="padding:34px 40px;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap">
+    <div>
+      <div style="font-family:'PT Serif',serif;font-size:22px;font-weight:700;color:#0b3b6b">Свяжитесь с нами</div>
+      <div style="font-size:14px;color:#5a6b80;margin-top:4px">Есть вопросы? Приходите в наш центр или позвоните. Консультация бесплатна.</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:26px">
+      <div style="text-align:right"><div style="font-size:12.5px;color:#8798ad">Телефоны для связи</div><div style="font-family:'PT Serif',serif;font-size:22px;font-weight:700;color:#0b3b6b">225-05-75 · 225-02-21</div></div>
+      <a href="kontakty.html" style="border:1.5px solid #0b3b6b;color:#0b3b6b;font-weight:700;padding:11px 22px;border-radius:5px;font-size:14px">Все адреса →</a>
+    </div>
+  </div>
+</div>
+
+<!-- footer -->
+<div style="background:#08305a;color:#aac4de;font-size:13.5px">
+  <div class="wrap foot-grid" style="padding:32px 40px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;color:#fff;margin-bottom:12px"><img src="logo.png" alt="Миграционная служба Республики Таджикистан" style="width:42px;height:42px;object-fit:contain;flex:none;display:block;background:#fff;border-radius:50%;padding:2px"><strong style="font-size:13.5px;line-height:1.3">Центры консультирования и подготовки трудовых мигрантов</strong></div>
+      <div style="line-height:1.6;color:#90adcb">Государственное учреждение<br>Республика Таджикистан, г. Душанбе</div>
+    </div>
+    <div><div style="color:#fff;font-weight:700;margin-bottom:10px">Разделы</div><div style="line-height:2;color:#90adcb">О Центре<br>Страны<br>Перед выездом</div></div>
+    <div><div style="color:#fff;font-weight:700;margin-bottom:10px">Гражданам</div><div style="line-height:2;color:#90adcb">Новости<br>Регистрация<br>Как распознать обман</div></div>
+    <div><div style="color:#fff;font-weight:700;margin-bottom:10px">Контакты</div><div style="line-height:2;color:#90adcb">225-05-75 · 225-02-21<br>Telegram<br>Facebook</div></div>
+  </div>
+  <div style="border-top:1px solid rgba(255,255,255,.1)"><div class="wrap" style="padding:14px 40px;color:#7d9bbb;font-size:12.5px">© 2026 Государственное учреждение «Центры консультирования и подготовки трудовых мигрантов перед выездом»</div></div>
+</div>
+
+<script>
+  /* ---- hero slider: автопрокрутка + стрелки + точки ---- */
+  (function(){
+    const root = document.getElementById('heroSlider');
+    if(!root) return;
+    const slides = root.querySelectorAll('[data-hero]');
+    const dots = root.querySelectorAll('.hero-dot');
+    let i = 0, timer;
+    function show(n){
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s,k)=>{ s.style.opacity = k===i ? '1' : '0'; });
+      dots.forEach((d,k)=>{ d.style.background = k===i ? '#fff' : 'rgba(255,255,255,.4)'; });
+    }
+    function next(){ show(i+1); }
+    function start(){ stop(); timer = setInterval(next, 5000); }
+    function stop(){ if(timer) clearInterval(timer); }
+    root.querySelector('[data-next]').addEventListener('click', ()=>{ next(); start(); });
+    root.querySelector('[data-prev]').addEventListener('click', ()=>{ show(i-1); start(); });
+    dots.forEach(d=> d.addEventListener('click', ()=>{ show(+d.dataset.go); start(); }));
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    show(0); start();
+  })();
+
+  /* ---- data (portированные из шаблона Design Composer «Вариант A») ---- */
+  const news = [
+    { date: '28 июня 2026', title: 'Информационная сессия в районе' },
+    { date: '21 июня 2026', title: 'Ярмарка свободных вакансий' },
+    { date: '14 июня 2026', title: 'Встреча с жителями джамоата' },
+  ];
+  const help = [
+    { icon: '🔎', t: 'Узнаете правду о стране', d: 'Сколько реально останется денег после всех расходов и что вас ждёт на месте' },
+    { icon: '📋', t: 'Соберёте документы', d: 'Поможем понять, какие нужны бумаги, и подготовить их правильно' },
+    { icon: '🎓', t: 'Пройдёте подготовку', d: 'Обучение перед выездом, чтобы вы уехали готовым к работе' },
+    { icon: '📜', t: 'Получите свидетельство', d: 'Документ о навыках — пригодится и за границей, и дома' },
+  ];
+  const detail = [
+    { id: 'ru', code: 'RU', name: 'Россия', short: 'Патент и трудовой договор',
+      tagline: 'Куда уезжает большинство — читать внимательно',
+      earnings: '60 000 – 90 000 ₽ / мес', earningsNote: 'На руки после жилья и питания — ориентировочно 45 000 – 65 000 ₽',
+      docs: 'Загранпаспорт, миграционная карта, патент, полис ДМС, регистрация в течение 7 дней',
+      steps: ['Оформите загранпаспорт и получите патент', 'Заключите официальный трудовой договор', 'Пройдите медосмотр и дактилоскопию', 'Встаньте на миграционный учёт по прибытии'],
+      note: 'Работайте только по патенту и договору. Без документов — риск штрафа и выдворения.' },
+    { id: 'uk', code: 'UK', name: 'Великобритания', short: 'Рабочая виза со спонсором',
+      tagline: 'Только по официальному приглашению работодателя',
+      earnings: '£1 600 – £2 400 / мес', earningsNote: 'Высокая стоимость жизни — заранее уточните расходы на жильё',
+      docs: 'Загранпаспорт, приглашение (Certificate of Sponsorship), рабочая виза, знание английского',
+      steps: ['Найдите работодателя с лицензией спонсора', 'Получите Certificate of Sponsorship', 'Подайте документы на рабочую визу', 'Пройдите биометрию и медосмотр'],
+      note: 'Виза оформляется только через лицензированного работодателя. Остерегайтесь фальшивых приглашений.' },
+    { id: 'kr', code: 'KR', name: 'Южная Корея', short: 'Программа EPS',
+      tagline: 'Трудоустройство по системе разрешений (EPS)',
+      earnings: '₩2 000 000 – ₩2 600 000 / мес', earningsNote: 'Требуется сдать экзамен по корейскому языку (EPS-TOPIK)',
+      docs: 'Загранпаспорт, сертификат EPS-TOPIK, медсправка, трудовой контракт',
+      steps: ['Сдайте языковой экзамен EPS-TOPIK', 'Зарегистрируйтесь в системе EPS', 'Дождитесь выбора работодателем', 'Оформите визу E-9 и выезжайте'],
+      note: 'Приём заявок — только через государственную программу EPS. Частные посредники не имеют права её оформлять.' },
+    { id: 'pl', code: 'PL', name: 'Польша', short: 'Рабочая виза (тип D)',
+      tagline: 'Один из основных рынков труда в ЕС',
+      earnings: '3 500 – 5 000 zł / мес', earningsNote: 'Часто предоставляется жильё от работодателя',
+      docs: 'Загранпаспорт, приглашение на работу, рабочая виза D, страховка',
+      steps: ['Получите приглашение (oświadczenie / zezwolenie)', 'Подайте на национальную визу типа D', 'Оформите медицинскую страховку', 'Пройдите собеседование в консульстве'],
+      note: 'Проверяйте приглашение в реестре работодателей. Не платите за «гарантированное» трудоустройство.' },
+    { id: 'lv', code: 'LV', name: 'Латвия', short: 'Рабочая виза (ЕС)',
+      tagline: 'Работа в странах Балтии по визе ЕС',
+      earnings: '€900 – €1 400 / мес', earningsNote: 'Знание базового английского или русского приветствуется',
+      docs: 'Загранпаспорт, приглашение работодателя, рабочая виза, страховка',
+      steps: ['Получите разрешение на трудоустройство', 'Оформите национальную рабочую визу', 'Сделайте медицинскую страховку', 'Зарегистрируйтесь по прибытии'],
+      note: 'Убедитесь, что работодатель зарегистрирован официально и договор оформлен на латышском и понятном вам языке.' },
+    { id: 'de', code: 'DE', name: 'Германия', short: 'Голубая карта / рабочая виза',
+      tagline: 'Требуется квалификация и знание языка',
+      earnings: '€2 200 – €3 200 / мес', earningsNote: 'Нужно подтверждение квалификации и уровень немецкого A2–B1',
+      docs: 'Загранпаспорт, подтверждение диплома, трудовой договор, рабочая виза',
+      steps: ['Подтвердите квалификацию (Anerkennung)', 'Найдите работодателя и договор', 'Подайте на рабочую визу или Blue Card', 'Пройдите собеседование в посольстве'],
+      note: 'Признание диплома обязательно для большинства профессий. Начните с проверки квалификации.' },
+  ];
+
+  let selected = 'ru';
+
+  /* ---- news ---- */
+  document.getElementById('news-grid').innerHTML = news.map(n => `
+    <div class="hov-card clk" style="border:1px solid #e0e7f0;border-radius:7px;overflow:hidden;background:#fff">
+      <div style="height:150px;background-image:repeating-linear-gradient(135deg,#e4ebf3 0 14px,#eef3f9 14px 28px);display:flex;align-items:center;justify-content:center;color:#8ba1bd;font-size:20px">📷</div>
+      <div style="padding:16px 18px">
+        <div style="font-size:12px;color:#8798ad;letter-spacing:.03em">${n.date}</div>
+        <div style="font-family:'PT Serif',serif;font-size:16.5px;font-weight:700;color:#1b2c44;line-height:1.3;margin-top:6px">${n.title}</div>
+        <div style="font-size:13px;color:#0b3b6b;font-weight:700;margin-top:12px">Читать →</div>
+      </div>
+    </div>`).join('');
+
+  /* ---- help ---- */
+  document.getElementById('help-grid').innerHTML = help.map(h => `
+    <div class="hov-card" style="border:1px solid #e0e7f0;border-radius:7px;padding:20px;background:#fff">
+      <div style="width:42px;height:42px;border-radius:6px;background:#e7eff8;color:#0b3b6b;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px">${h.icon}</div>
+      <div style="font-weight:700;font-size:15px;color:#1b2c44;margin-bottom:6px">${h.t}</div>
+      <div style="font-size:13.5px;color:#5a6b80;line-height:1.5">${h.d}</div>
+    </div>`).join('');
+
+  /* ---- countries master-detail ---- */
+  const listEl = document.getElementById('country-list');
+  const detailEl = document.getElementById('country-detail');
+
+  function renderList(){
+    listEl.innerHTML = detail.map(c => {
+      const active = c.id === selected;
+      if (active){
+        return `
+        <div data-id="${c.id}" class="clk" style="display:flex;align-items:center;gap:13px;padding:13px 15px;border-radius:8px;background:#0b3b6b;border:1px solid #0b3b6b;box-shadow:0 4px 14px rgba(11,59,107,.22)">
+          <div style="width:44px;height:30px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none;background:rgba(255,255,255,.18);color:#fff">${c.code}</div>
+          <div>
+            <div style="font-weight:700;font-size:15px;line-height:1.2;color:#fff">${c.name}</div>
+            <div style="font-size:12px;margin-top:2px;color:#cfe0f2">${c.short}</div>
+          </div>
+          <span style="margin-left:auto;font-size:16px;color:#fff">›</span>
+        </div>`;
+      }
+      return `
+        <div data-id="${c.id}" class="hov-card clk" style="display:flex;align-items:center;gap:13px;padding:13px 15px;border-radius:8px;background:#fff;border:1px solid #e0e7f0">
+          <div style="width:44px;height:30px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex:none;background:#dbe5f1;color:#0b3b6b">${c.code}</div>
+          <div>
+            <div style="font-weight:700;font-size:15px;line-height:1.2;color:#1b2c44">${c.name}</div>
+            <div style="font-size:12px;margin-top:2px;color:#8798ad">${c.short}</div>
+          </div>
+          <span style="margin-left:auto;font-size:16px;color:#c3cfdd">›</span>
+        </div>`;
+    }).join('');
+    listEl.querySelectorAll('[data-id]').forEach(el => {
+      el.onclick = () => { selected = el.dataset.id; render(); };
+    });
+  }
+
+  function renderDetail(){
+    const sel = detail.find(d => d.id === selected) || detail[0];
+    const steps = sel.steps.map((t, i) => `
+      <div style="display:flex;gap:12px;align-items:flex-start">
+        <div style="width:24px;height:24px;border-radius:50%;background:#e7eff8;color:#0b3b6b;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12.5px;flex:none;margin-top:1px">${i + 1}</div>
+        <div style="font-size:14px;color:#33465e;line-height:1.45">${t}</div>
+      </div>`).join('');
+    detailEl.innerHTML = `
+      <div style="background:#0b3b6b;color:#fff;padding:22px 26px;display:flex;align-items:center;gap:16px">
+        <div style="width:60px;height:42px;border-radius:5px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex:none">${sel.code}</div>
+        <div>
+          <div style="font-family:'PT Serif',serif;font-size:23px;font-weight:700;line-height:1.1">${sel.name}</div>
+          <div style="font-size:13.5px;color:#cfe0f2;margin-top:3px">${sel.tagline}</div>
+        </div>
+      </div>
+      <div style="padding:24px 26px;display:flex;flex-direction:column;gap:22px">
+        <div class="grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div style="background:#f4f7fb;border:1px solid #e6ecf3;border-radius:7px;padding:16px 18px">
+            <div style="font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:#8798ad;font-weight:700">Реальный заработок</div>
+            <div style="font-family:'PT Serif',serif;font-size:21px;font-weight:700;color:#1b6b3a;margin:6px 0 6px">${sel.earnings}</div>
+            <div style="font-size:12.5px;color:#5a6b80;line-height:1.45">${sel.earningsNote}</div>
+          </div>
+          <div style="background:#f4f7fb;border:1px solid #e6ecf3;border-radius:7px;padding:16px 18px">
+            <div style="font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:#8798ad;font-weight:700">Нужные документы</div>
+            <div style="font-size:13.5px;color:#1b2c44;line-height:1.5;margin-top:8px">${sel.docs}</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-family:'PT Serif',serif;font-size:16px;font-weight:700;color:#0b3b6b;margin-bottom:12px">Порядок выезда</div>
+          <div style="display:flex;flex-direction:column;gap:10px">${steps}</div>
+        </div>
+        <div style="background:#fdf4e7;border:1px solid #eecb92;border-left:4px solid #d68a1e;border-radius:6px;padding:13px 16px;display:flex;gap:11px;align-items:flex-start">
+          <span style="color:#d68a1e;font-size:16px;flex:none;line-height:1.4">⚠</span>
+          <div style="font-size:13px;color:#6b5228;line-height:1.5">${sel.note}</div>
+        </div>
+        <div><span class="clk" style="display:inline-block;background:#0b3b6b;color:#fff;font-weight:700;padding:11px 24px;border-radius:5px;font-size:14px">Условия выезда в страну ${sel.name} →</span></div>
+      </div>`;
+  }
+
+  function render(){ renderList(); renderDetail(); }
+  render();
+
+  /* ---- mobile menu ---- */
+  document.getElementById('burger').addEventListener('click', () =>
+    document.getElementById('nav').classList.toggle('open'));
+</script>
+</body>
+</html>

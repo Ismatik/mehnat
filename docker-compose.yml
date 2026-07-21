@@ -1,0 +1,177 @@
+# ============================================================
+#  MEHNAT — оркестрация всех сервисов
+#
+#  Состав:
+#    db            — PostgreSQL (одна общая БД, таблицы с префиксами s1_/s2_)
+#    api           — один Go-бэкенд на всё (сайты + все админки)
+#    web-site1     — публичный сайт 1 (mmashvarat.tj)
+#    web-site2     — публичный сайт 2 (a-khorijakor.tj)
+#    admin-site1   — админка контента сайта 1
+#    admin-site2   — админка контента сайта 2
+#    admin-users   — ОБЩАЯ админка: создание пользователей в оба сайта
+#    nginx         — реверс-прокси, раскидывает по доменам/путям
+#
+#  Запуск:   docker compose up -d --build
+#  Логи:     docker compose logs -f api
+#  Стоп:     docker compose down
+# ============================================================
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      # init-скрипты выполняются один раз при первом создании тома
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      # наружу отдаём только для отладки; в проде можно убрать
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      API_PORT: ${API_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_TTL: ${JWT_TTL}
+      APP_ENV: ${APP_ENV}
+      SITE1_KEY: ${SITE1_KEY}
+      SITE2_KEY: ${SITE2_KEY}
+      SITE1_DOMAIN: ${SITE1_DOMAIN}
+      SITE2_DOMAIN: ${SITE2_DOMAIN}
+      UPLOAD_DIR: /app/uploads
+      SEED_ADMIN_EMAIL: ${SEED_ADMIN_EMAIL}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      # загруженные из админки файлы должны переживать пересборку контейнера
+      - uploads_data:/app/uploads
+    expose:
+      - "${API_PORT}"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:${API_PORT}/healthz"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  web-site1:
+    build:
+      context: ./web/site1
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_BASE: ${NEXT_PUBLIC_API_BASE}
+        NEXT_PUBLIC_SITE_KEY: ${SITE1_KEY}
+        NEXT_PUBLIC_ATS_URL: ${SITE1_ATS_URL}
+    restart: unless-stopped
+    expose:
+      - "80"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  web-site2:
+    build:
+      context: ./web/site2
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_BASE: ${NEXT_PUBLIC_API_BASE}
+        NEXT_PUBLIC_SITE_KEY: ${SITE2_KEY}
+        NEXT_PUBLIC_ATS_URL: ${SITE2_ATS_URL}
+    restart: unless-stopped
+    expose:
+      - "80"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  admin-site1:
+    build:
+      context: ./admin/admin-site1
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_BASE: ${NEXT_PUBLIC_API_BASE}
+        NEXT_PUBLIC_SITE_KEY: ${SITE1_KEY}
+    restart: unless-stopped
+    expose:
+      - "80"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  admin-site2:
+    build:
+      context: ./admin/admin-site2
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_BASE: ${NEXT_PUBLIC_API_BASE}
+        NEXT_PUBLIC_SITE_KEY: ${SITE2_KEY}
+    restart: unless-stopped
+    expose:
+      - "80"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  admin-users:
+    build:
+      context: ./admin/admin-users
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_BASE: ${NEXT_PUBLIC_API_BASE}
+    restart: unless-stopped
+    expose:
+      - "80"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    ports:
+      - "80:80"
+      # - "443:443"   # включить после установки сертификатов
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/api/healthz"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      - api
+      - web-site1
+      - web-site2
+      - admin-site1
+      - admin-site2
+      - admin-users
+
+volumes:
+  db_data:
+  uploads_data:

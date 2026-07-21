@@ -1,0 +1,85 @@
+/* ============================================================
+   МЕХНАТ — публичный сайт. Стили перенесены 1:1 из design/mockup/*.html
+   (базовые классы, hover-эффекты, адаптив 980/720, бургер-меню).
+   Значения — из shared/ui/tokens.ts (цвета, шрифты PT Serif/PT Sans).
+   ============================================================ */
+
+/* Акцент --accent: дефолт задаётся на этапе сборки по сайту в app/layout.tsx
+   (site1 красный, site2 зелёный — без вспышки), в рантайме переопределяется из
+   settings.accent_color (провайдер, inline-стиль на <html> имеет приоритет).
+   Здесь НЕ задаём :root{--accent}, чтобы не перебивать build-time дефолт. */
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "PT Sans", system-ui, sans-serif; color: #14233a; background: #fff; }
+::selection { background: #0b3b6b; color: #fff; }
+a { color: inherit; text-decoration: none; }
+.wrap { max-width: 1180px; margin: 0 auto; }
+.clk { cursor: pointer; }
+
+/* hover-карточки (главная / общие) */
+.hov-card { transition: border-color .15s, box-shadow .15s, transform .15s; }
+.hov-card:hover { border-color: #0b3b6b; box-shadow: 0 6px 18px rgba(11,59,107,.1); }
+/* новости */
+.news-card { transition: box-shadow .15s, transform .15s; }
+.news-card:hover { box-shadow: 0 10px 26px rgba(11,59,107,.13); transform: translateY(-2px); }
+/* карточки стран (услуги) */
+.ccard { transition: box-shadow .15s, border-color .15s, transform .15s; }
+.ccard:hover { box-shadow: 0 14px 34px rgba(11,59,107,.15); border-color: #dbe5f1; transform: translateY(-3px); }
+.ccard.hl:hover { box-shadow: 0 14px 34px rgba(213,43,30,.16); border-color: #e79aa2; }
+/* карточки контактов */
+.card-hover { transition: box-shadow .15s, border-color .15s, transform .15s; }
+.card-hover:hover { box-shadow: 0 12px 30px rgba(11,59,107,.13); border-color: #dbe5f1; transform: translateY(-2px); }
+
+.nav a:hover { color: #0b3b6b; }
+.burger { display: none; border: 1px solid #c3cedd; background: #fff; border-radius: 4px; padding: 8px 12px; font-size: 18px; cursor: pointer; line-height: 1; color: #0b3b6b; }
+.submit:hover { filter: brightness(0.92) !important; }
+
+/* ---------- Адаптив 980 ---------- */
+@media (max-width: 980px) {
+  .hero-grid { grid-template-columns: 1fr !important; }
+  .md-grid { grid-template-columns: 1fr !important; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr) !important; }
+  .grid-2 { grid-template-columns: 1fr !important; }
+  .foot-grid { grid-template-columns: 1fr 1fr !important; }
+  .facts-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .help-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+  .steps-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .docs-grid { grid-template-columns: 1fr !important; }
+  .about-grid { grid-template-columns: 1fr !important; gap: 36px !important; }
+  .news-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .cards { grid-template-columns: repeat(2, 1fr) !important; }
+  .contact-cards { grid-template-columns: 1fr !important; }
+  .mapform { grid-template-columns: 1fr !important; }
+  .map-pane { min-height: 280px !important; }
+  .centers-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .feedback { grid-template-columns: 1fr !important; }
+  .feedback-photo { min-height: 220px !important; }
+
+  .nav { display: none !important; }
+  .burger { display: inline-flex; }
+  .mast { position: relative; flex-wrap: wrap; }
+  .nav.open { display: flex !important; flex-direction: column; align-items: flex-start; gap: 0 !important; width: 100%; }
+  .nav.open > span, .nav.open > a { padding: 11px 0; width: 100%; }
+  .nav.open .cab { margin-top: 8px; width: max-content; }
+}
+
+/* ---------- Адаптив 720 ---------- */
+@media (max-width: 720px) {
+  .wrap { padding-left: 20px !important; padding-right: 20px !important; }
+  .grid-3 { grid-template-columns: 1fr !important; }
+  .grid-4 { grid-template-columns: 1fr !important; }
+  .foot-grid { grid-template-columns: 1fr !important; }
+  .facts-grid { grid-template-columns: 1fr !important; }
+  .steps-grid { grid-template-columns: 1fr !important; }
+  .news-grid { grid-template-columns: 1fr !important; }
+  .cards { grid-template-columns: 1fr !important; }
+  .centers-grid { grid-template-columns: 1fr !important; }
+  .hero-slide { min-height: 360px !important; }
+  .hero-banner { min-height: 300px !important; }
+  .hero-banner h1 { font-size: 34px !important; }
+  .crumbs { font-size: 12px !important; flex-wrap: wrap; }
+  .contacts { flex-direction: column; align-items: flex-start !important; }
+  .about-title { max-width: 100% !important; }
+  .about-title h2 { font-size: 24px !important; }
+  .foot-row { flex-direction: column; align-items: flex-start !important; }
+}
