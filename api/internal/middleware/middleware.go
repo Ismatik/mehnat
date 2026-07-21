@@ -57,12 +57,12 @@ func Auth(m *auth.Manager) func(http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			h := r.Header.Get("Authorization")
 			if !strings.HasPrefix(h, "Bearer ") {
-				httpx.Error(w, http.StatusUnauthorized, "missing bearer token")
+				httpx.ErrCode(w, http.StatusUnauthorized, "unauthorized", "missing bearer token")
 				return
 			}
 			claims, err := m.Parse(strings.TrimPrefix(h, "Bearer "))
 			if err != nil {
-				httpx.Error(w, http.StatusUnauthorized, "invalid or expired token")
+				httpx.ErrCode(w, http.StatusUnauthorized, "session_expired", "invalid or expired token")
 				return
 			}
 			ctx := context.WithValue(r.Context(), ctxClaims, claims)
@@ -81,7 +81,7 @@ func RequireRole(roles ...string) func(http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			c := ClaimsFrom(r.Context())
 			if c == nil || !allowed[c.Role] {
-				httpx.Error(w, http.StatusForbidden, "insufficient role")
+				httpx.ErrCode(w, http.StatusForbidden, "forbidden_role", "insufficient role")
 				return
 			}
 			next.ServeHTTP(w, r)
@@ -111,7 +111,7 @@ func RequireSiteAccess(next http.Handler) http.Handler {
 		c := ClaimsFrom(r.Context())
 		s := SiteFrom(r.Context())
 		if c == nil || s.Key == "" || !c.HasSite(string(s.Key)) {
-			httpx.Error(w, http.StatusForbidden, "no access to this site")
+			httpx.ErrCode(w, http.StatusForbidden, "no_site_access", "no access to this site")
 			return
 		}
 		next.ServeHTTP(w, r)

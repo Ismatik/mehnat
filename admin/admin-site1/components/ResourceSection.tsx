@@ -27,6 +27,7 @@ import {
   useLang,
   type FieldCtx,
 } from "./Fields";
+import { useT } from "./uilang";
 
 const SHORT: Record<Lang, string> = { ru: "RU", tg: "ТҶ", en: "EN" };
 
@@ -221,6 +222,7 @@ function FormBody({
   onAuthError: () => void;
 }) {
   const { lang } = useLang();
+  const { et } = useT();
   const [row, setRow] = useState<any>(() => JSON.parse(JSON.stringify(record)));
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -263,10 +265,8 @@ function FormBody({
       if (e instanceof ApiError && (e.status === 401 || e.status === 403)) return onAuthError();
       if (e instanceof ApiError && e.status === 422 && e.fields) {
         setServerProblems(e.fields);
-        setError("Публикация отклонена сервером: не заполнен перевод. Данные сохранены в форме — заполните отмеченные поля.");
-      } else {
-        setError(e instanceof ApiError ? e.message : "Ошибка сохранения");
       }
+      setError(et(e)); // локализованный текст ошибки (по коду API)
       setBusy(false);
     }
   }

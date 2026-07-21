@@ -48,12 +48,21 @@ export function clearToken() {
   window.localStorage.removeItem(TOKEN_KEY);
 }
 
-// Ошибка API с человекочитаемым сообщением и HTTP-статусом.
+export interface FieldProblem {
+  field: string;
+  langs: string[];
+}
+
+// Ошибка API: статус + стабильный код (для локализации) + message (англ., отладка).
 export class ApiError extends Error {
   status: number;
-  constructor(status: number, message: string) {
+  code?: string;
+  fields?: FieldProblem[];
+  constructor(status: number, message: string, opts?: { code?: string; fields?: FieldProblem[] }) {
     super(message);
     this.status = status;
+    this.code = opts?.code;
+    this.fields = opts?.fields;
   }
 }
 
@@ -69,7 +78,7 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   try {
     res = await fetch(`${API_BASE}${path}`, { ...init, headers });
   } catch {
-    throw new ApiError(0, "Нет связи с сервером");
+    throw new ApiError(0, "network error");
   }
 
   if (res.status === 204) return undefined as T;
@@ -85,8 +94,11 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   }
 
   if (!res.ok) {
-    const msg = (data && (data.error || data.message)) || `Ошибка ${res.status}`;
-    throw new ApiError(res.status, msg);
+    const msg = (data && (data.message || data.error)) || `HTTP ${res.status}`;
+    throw new ApiError(res.status, msg, {
+      code: data && typeof data.error === "string" ? data.error : undefined,
+      fields: data && Array.isArray(data.fields) ? data.fields : undefined,
+    });
   }
   return data as T;
 }

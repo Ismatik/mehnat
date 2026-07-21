@@ -25,7 +25,7 @@ export default function Page() {
   const steps: Row[] = Array.isArray(body.steps) ? body.steps : [];
   const documents: any[] = Array.isArray(body.documents) ? body.documents : [];
 
-  const home = { ru: "Асосӣ", tg: "Асосӣ", en: "Home" }[lang];
+  const home = { ru: "Главная", tg: "Асосӣ", en: "Home" }[lang];
   const dest = { ru: "Страна назначения", tg: "Кишвари таъинот", en: "Destination" }[lang];
   const heroTitle = pick(page?.hero_title, lang) || { ru: "Работа в Германии", tg: "Кор дар Олмон", en: "Work in Germany" }[lang];
   const L = {

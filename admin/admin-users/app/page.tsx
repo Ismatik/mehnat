@@ -17,6 +17,7 @@ import {
 } from "../lib/api";
 import Login from "../components/Login";
 import UserForm from "../components/UserForm";
+import { UiLangProvider, useT } from "../components/uilang";
 
 const ROLE_LABEL: Record<string, string> = {
   superadmin: "Суперадмин",
@@ -26,6 +27,14 @@ const ROLE_LABEL: Record<string, string> = {
 const SITE_LABEL: Record<string, string> = { s1: "Сайт 1", s2: "Сайт 2" };
 
 export default function Page() {
+  return (
+    <UiLangProvider>
+      <PageInner />
+    </UiLangProvider>
+  );
+}
+
+function PageInner() {
   const [booting, setBooting] = useState(true);
   const [session, setSession] = useState<SessionUser | null>(null);
 
@@ -55,6 +64,7 @@ export default function Page() {
 }
 
 function Dashboard({ session, onLogout }: { session: SessionUser; onLogout: () => void }) {
+  const { t } = useT();
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -116,7 +126,7 @@ function Dashboard({ session, onLogout }: { session: SessionUser; onLogout: () =
           <div className="spacer" />
           <span className="who hide-sm">{session.email}</span>
           <button className="btn btn-light btn-sm" onClick={onLogout}>
-            Выйти
+            {t("logout")}
           </button>
         </div>
       </header>

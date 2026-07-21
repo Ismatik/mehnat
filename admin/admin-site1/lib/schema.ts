@@ -46,6 +46,9 @@ export interface ResourceDef {
   publishField?: string; // is_active | published | is_published
   fields: Field[];
   fixed?: boolean; // нельзя создавать/удалять (только редактировать существующие)
+  // hidden — скрыт из сайдбара админки (данные/таблица/API НЕ трогаются;
+  // убрать флаг — раздел вернётся). services/team скрыты: блоков нет в макете.
+  hidden?: boolean;
 }
 
 // ---- Структурный detail страны (countries.description) ----
@@ -144,6 +147,7 @@ export const RESOURCES: ResourceDef[] = [
     titleField: "title",
     sortable: true,
     publishField: "is_active",
+    hidden: true, // блока «Услуги» нет в макете — скрыт (данные/API целы)
     fields: [
       { name: "title", label: "Заголовок", type: "i18n" },
       { name: "icon", label: "Иконка (эмодзи)", type: "text" },
@@ -186,6 +190,7 @@ export const RESOURCES: ResourceDef[] = [
     titleField: "full_name",
     sortable: true,
     publishField: "is_active",
+    hidden: true, // блока «Команда» нет в макете — скрыт (данные/API целы)
     fields: [
       { name: "full_name", label: "ФИО", type: "i18n" },
       { name: "position", label: "Должность", type: "i18n" },

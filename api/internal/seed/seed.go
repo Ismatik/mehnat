@@ -158,7 +158,7 @@ func seedSettings(ctx context.Context, pool *pgxpool.Pool, s site.Site) error {
 // accentFor — акцентный цвет: сайт 2 отличается (по требованию).
 func accentFor(k site.Key) string {
 	if k == "s2" {
-		return "#127a3e" // site-override для сайта 2 (зелёный акцент)
+		return "#0e7a5e" // site-override для сайта 2 (зелёный акцент)
 	}
 	return "#d52b1e"
 }

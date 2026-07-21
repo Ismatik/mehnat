@@ -127,7 +127,7 @@ export default function Home() {
             {presPhoto ? (
               <img src={presPhoto} alt={L.presidentLabel} style={{ width: 172, height: 214, borderRadius: 6, border: "1px solid rgba(255,255,255,.25)", objectFit: "cover", objectPosition: "50% 20%", flex: "none", display: "block" }} />
             ) : (
-              <div style={{ width: 172, height: 214, borderRadius: 6, border: "1px solid rgba(255,255,255,.25)", background: "rgba(255,255,255,.06)", display: "flex", alignItems: "center", justifyContent: "center", color: "#9fc0e4", fontSize: 13, flex: "none" }}>фото</div>
+              <div style={{ width: 172, height: 214, borderRadius: 6, border: "1px solid rgba(255,255,255,.25)", background: "rgba(255,255,255,.06)", display: "flex", alignItems: "center", justifyContent: "center", color: "#9fc0e4", fontSize: 13, flex: "none" }}>{{ ru: "фото", tg: "акс", en: "photo" }[lang]}</div>
             )}
             <div>
               <div style={{ fontSize: 12, letterSpacing: ".04em", textTransform: "uppercase", color: "#9fc0e4", fontWeight: 700, marginBottom: 8 }}>{L.presidentLabel}</div>

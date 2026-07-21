@@ -4,11 +4,11 @@ import { useState } from "react";
 import {
   createUser,
   updateUser,
-  ApiError,
   type Role,
   type User,
   type UserPayload,
 } from "../lib/api";
+import { useT } from "./uilang";
 
 const ROLES: { value: Role; label: string; hint: string }[] = [
   { value: "superadmin", label: "Суперадмин", hint: "Полный доступ, включая управление пользователями" },
@@ -30,6 +30,7 @@ export default function UserForm({
   onClose: () => void;
   onSaved: () => void;
 }) {
+  const { et } = useT();
   const [email, setEmail] = useState(editing?.email ?? "");
   const [fullName, setFullName] = useState(editing?.full_name ?? "");
   const [role, setRole] = useState<Role>(editing?.role ?? "editor");
@@ -82,7 +83,7 @@ export default function UserForm({
       }
       onSaved();
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Не удалось сохранить");
+      setError(et(err));
       setBusy(false);
     }
   }

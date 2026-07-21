@@ -34,7 +34,7 @@ export default function Page() {
 
   const body = (page?.body && typeof page.body === "object" ? page.body : {}) as Row;
   const collage: string[] = Array.isArray(body.collage) ? body.collage : ["", "", "", ""];
-  const home = { ru: "Асосӣ", tg: "Асосӣ", en: "Home" }[lang];
+  const home = { ru: "Главная", tg: "Асосӣ", en: "Home" }[lang];
   const heroTitle = pick(page?.hero_title, lang) || { ru: "О нас", tg: "Дар бораи мо", en: "About us" }[lang];
 
   return (

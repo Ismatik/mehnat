@@ -20,7 +20,7 @@ export default function Page() {
 
   const L = {
     hero: { ru: "Контакты", tg: "Тамос", en: "Contacts" }[lang],
-    home: { ru: "Асосӣ", tg: "Асосӣ", en: "Home" }[lang],
+    home: { ru: "Главная", tg: "Асосӣ", en: "Home" }[lang],
     phones: { ru: "Телефоны", tg: "Телефонҳо", en: "Phones" }[lang],
     hours: { ru: "Пн–Пт, 8:00–17:00", tg: "Дш–Ҷм, 8:00–17:00", en: "Mon–Fri, 8:00–17:00" }[lang],
     email: { ru: "Электронная почта", tg: "Почтаи электронӣ", en: "Email" }[lang],

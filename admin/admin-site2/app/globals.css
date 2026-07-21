@@ -79,6 +79,9 @@ label.field > span { display: block; font-size: 13px; font-weight: 700; color: #
 .login-box .mark { width: 54px; height: 54px; margin: 0 auto 12px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-family: "PT Serif", serif; font-weight: 700; font-size: 22px; }
 .login-box h1 { font-size: 21px; text-align: center; }
 .login-box .sub { text-align: center; color: var(--muted); font-size: 13px; margin: 6px 0 22px; }
+.login-langs { display: flex; justify-content: center; gap: 6px; margin-bottom: 18px; }
+.login-lang { border: 1px solid var(--border-strong); background: #fff; color: var(--muted); font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 20px; cursor: pointer; }
+.login-lang.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
 /* ---------- Оболочка ---------- */
 .admin-shell { display: flex; min-height: 100vh; }

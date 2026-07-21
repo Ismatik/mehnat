@@ -24,7 +24,7 @@ func (h *Handlers) Login(w http.ResponseWriter, r *http.Request) {
 	data, _ := io.ReadAll(io.LimitReader(r.Body, 1<<20))
 	var in loginInput
 	if err := json.Unmarshal(data, &in); err != nil || in.Email == "" || in.Password == "" {
-		httpx.Error(w, http.StatusBadRequest, "email and password are required")
+		httpx.ErrCode(w, http.StatusBadRequest, "credentials_required", "email and password are required")
 		return
 	}
 
@@ -44,24 +44,24 @@ func (h *Handlers) Login(w http.ResponseWriter, r *http.Request) {
 	// одинаковый ответ на «нет юзера» и «неверный пароль» — не раскрываем детали
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
-			httpx.Error(w, http.StatusUnauthorized, "invalid credentials")
+			httpx.ErrCode(w, http.StatusUnauthorized, "invalid_credentials", "invalid credentials")
 			return
 		}
-		httpx.Error(w, http.StatusInternalServerError, "login failed")
+		httpx.ErrCode(w, http.StatusInternalServerError, "login_failed", "login failed")
 		return
 	}
 	if !isActive {
-		httpx.Error(w, http.StatusForbidden, "account disabled")
+		httpx.ErrCode(w, http.StatusForbidden, "account_disabled", "account disabled")
 		return
 	}
 	if !auth.CheckPassword(passwordHash, in.Password) {
-		httpx.Error(w, http.StatusUnauthorized, "invalid credentials")
+		httpx.ErrCode(w, http.StatusUnauthorized, "invalid_credentials", "invalid credentials")
 		return
 	}
 
 	token, err := h.Auth.Issue(id, in.Email, role, siteAccess)
 	if err != nil {
-		httpx.Error(w, http.StatusInternalServerError, "token issue failed")
+		httpx.ErrCode(w, http.StatusInternalServerError, "login_failed", "token issue failed")
 		return
 	}
 

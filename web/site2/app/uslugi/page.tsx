@@ -18,14 +18,14 @@ export default function Page() {
   }, []);
 
   const L = {
-    hero: { ru: "Услуги", tg: "Хидматҳо", en: "Services" }[lang],
+    hero: { ru: "Страна назначения", tg: "Кишвари таъинот", en: "Destination country" }[lang],
     heroSub: {
       ru: "Государственное учреждение «Центры консультирования и подготовки трудовых мигрантов перед выездом» помогает гражданам Республики Таджикистан трудоустроиться за рубежом.",
       tg: "Муассисаи давлатии «Марказҳои машваратӣ ва омодагии муҳоҷирони меҳнатӣ» ба шаҳрвандони Ҷумҳурии Тоҷикистон дар корёбӣ дар хориҷа кӯмак мекунад.",
       en: "The state institution helps citizens of the Republic of Tajikistan find employment abroad.",
     }[lang],
-    home: { ru: "Асосӣ", tg: "Асосӣ", en: "Home" }[lang],
-    self: { ru: "Услуги", tg: "Хидматҳо", en: "Services" }[lang],
+    home: { ru: "Главная", tg: "Асосӣ", en: "Home" }[lang],
+    self: { ru: "Страна назначения", tg: "Кишвари таъинот", en: "Destination country" }[lang],
     section: { ru: "Работа в зарубежных странах", tg: "Кор дар кишварҳои хориҷӣ", en: "Working abroad" }[lang],
     more: { ru: "Подробнее", tg: "Муфассал", en: "Details" }[lang],
   };

@@ -41,7 +41,7 @@ export default function Page() {
     }
   }, [slug]);
 
-  const home = { ru: "Асосӣ", tg: "Асосӣ", en: "Home" }[lang];
+  const home = { ru: "Главная", tg: "Асосӣ", en: "Home" }[lang];
   const heroTitle = { ru: "НОВОСТИ", tg: "ХАБАРҲО", en: "NEWS" }[lang];
   const badge = { ru: "Новости", tg: "Хабарҳо", en: "News" }[lang];
   const back = { ru: "← Все новости", tg: "← Ҳамаи хабарҳо", en: "← All news" }[lang];

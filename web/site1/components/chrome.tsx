@@ -8,6 +8,10 @@ import { useState } from "react";
 import { useLang, useSiteData } from "./providers";
 import { LANGS, pick, type Lang } from "../lib/i18n";
 import { socialLinks } from "../lib/socials.js";
+import { SITE_KEY } from "../lib/api";
+
+// Буква логотипа-заглушки (пока не загружен logo_url): пара сайт↔админка.
+const BRAND_LETTER = SITE_KEY === "s2" ? "Х" : "М";
 
 const PRIMARY = "#0b3b6b";
 
@@ -161,7 +165,7 @@ export function Header({ activeUrl }: { activeUrl?: string }) {
           {logo ? (
             <img src={logo} alt="Логотип" style={{ width: 58, height: 58, objectFit: "contain", flex: "none", display: "block" }} />
           ) : (
-            <span style={{ width: 58, height: 58, borderRadius: "50%", background: PRIMARY, color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'PT Serif',serif", fontWeight: 700, fontSize: 24, flex: "none" }}>М</span>
+            <span style={{ width: 58, height: 58, borderRadius: "50%", background: "var(--accent)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'PT Serif',serif", fontWeight: 700, fontSize: 24, flex: "none" }}>{BRAND_LETTER}</span>
           )}
           <div style={{ maxWidth: 520 }}>
             <div style={{ fontFamily: "'PT Serif',serif", fontWeight: 700, fontSize: 15.5, color: PRIMARY, lineHeight: 1.25 }}>{title}</div>
@@ -210,7 +214,7 @@ export function Header({ activeUrl }: { activeUrl?: string }) {
             )}
           </span>
           <a href="/#reg" className="cab clk" style={{ background: PRIMARY, color: "#fff", padding: "10px 18px", borderRadius: 4, fontSize: 13.5 }}>
-            Зарегистрируйтесь в Центре
+            {{ ru: "Зарегистрируйтесь в Центре", tg: "Дар Марказ бақайд шавед", en: "Register at the Center" }[lang]}
           </a>
         </div>
       </div>
@@ -274,7 +278,7 @@ function FooterRow() {
   return (
     <div style={{ background: PRIMARY, color: "#fff", marginTop: 52 }}>
       <div className="wrap foot-row" style={{ padding: "36px 40px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 30, flexWrap: "wrap" }}>
-        <a href="/kontakty/" className="clk" style={{ background: "rgba(255,255,255,.12)", border: "1px solid rgba(255,255,255,.25)", color: "#fff", fontWeight: 700, fontSize: 14, letterSpacing: ".03em", padding: "13px 32px", borderRadius: 30 }}>Контакты</a>
+        <a href="/kontakty/" className="clk" style={{ background: "rgba(255,255,255,.12)", border: "1px solid rgba(255,255,255,.25)", color: "#fff", fontWeight: 700, fontSize: 14, letterSpacing: ".03em", padding: "13px 32px", borderRadius: 30 }}>{{ ru: "Контакты", tg: "Тамос", en: "Contacts" }[lang]}</a>
         {socials.length > 0 && (
           <div data-socials="footer" style={{ display: "flex", alignItems: "center", gap: 14 }}>
             {socials.map((s) => (
@@ -287,7 +291,7 @@ function FooterRow() {
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <span style={{ width: 46, height: 46, borderRadius: "50%", border: "1.5px solid rgba(255,255,255,.35)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 19, flex: "none" }}>☎</span>
           <div>
-            <div style={{ fontSize: 12.5, color: "#9fc0e4" }}>Телефоны для связи</div>
+            <div style={{ fontSize: 12.5, color: "#9fc0e4" }}>{{ ru: "Телефоны для связи", tg: "Телефонҳо барои тамос", en: "Contact phones" }[lang]}</div>
             <div style={{ fontFamily: "'PT Serif',serif", fontSize: 19, fontWeight: 700 }}>{phone1} | {phone2}</div>
           </div>
         </div>
@@ -318,7 +322,7 @@ function FooterFull() {
             {logo ? (
               <img src={logo} alt="" style={{ width: 42, height: 42, objectFit: "contain", flex: "none", display: "block", background: "#fff", borderRadius: "50%", padding: 2 }} />
             ) : (
-              <span style={{ width: 42, height: 42, borderRadius: "50%", background: "#fff", color: PRIMARY, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'PT Serif',serif", fontWeight: 700 }}>М</span>
+              <span style={{ width: 42, height: 42, borderRadius: "50%", background: "var(--accent)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'PT Serif',serif", fontWeight: 700 }}>{BRAND_LETTER}</span>
             )}
             <strong style={{ fontSize: 13.5, lineHeight: 1.3 }}>{title}</strong>
           </div>
@@ -328,7 +332,7 @@ function FooterFull() {
           </div>
         </div>
         <div>
-          <div style={{ color: "#fff", fontWeight: 700, marginBottom: 10 }}>Разделы</div>
+          <div style={{ color: "#fff", fontWeight: 700, marginBottom: 10 }}>{{ ru: "Разделы", tg: "Бахшҳо", en: "Sections" }[lang]}</div>
           <div style={{ lineHeight: 2, color: "#90adcb" }}>
             {roots.map((m) => (
               <div key={m.id}><a href={canonicalHref(m.url || "/")}>{pick(m.label, lang)}</a></div>
@@ -336,15 +340,15 @@ function FooterFull() {
           </div>
         </div>
         <div>
-          <div style={{ color: "#fff", fontWeight: 700, marginBottom: 10 }}>Гражданам</div>
+          <div style={{ color: "#fff", fontWeight: 700, marginBottom: 10 }}>{{ ru: "Гражданам", tg: "Ба шаҳрвандон", en: "For citizens" }[lang]}</div>
           <div style={{ lineHeight: 2, color: "#90adcb" }}>
-            <div><a href="/novosti/">Новости</a></div>
-            <div><a href="/#reg">Регистрация</a></div>
-            <div><a href="/kontakty/">Контакты</a></div>
+            <div><a href="/novosti/">{{ ru: "Новости", tg: "Хабарҳо", en: "News" }[lang]}</a></div>
+            <div><a href="/#reg">{{ ru: "Регистрация", tg: "Бақайдгирӣ", en: "Registration" }[lang]}</a></div>
+            <div><a href="/kontakty/">{{ ru: "Контакты", tg: "Тамос", en: "Contacts" }[lang]}</a></div>
           </div>
         </div>
         <div>
-          <div style={{ color: "#fff", fontWeight: 700, marginBottom: 10 }}>Контакты</div>
+          <div style={{ color: "#fff", fontWeight: 700, marginBottom: 10 }}>{{ ru: "Контакты", tg: "Тамос", en: "Contacts" }[lang]}</div>
           <div style={{ lineHeight: 2, color: "#90adcb" }}>
             {phone1} · {phone2}<br />
             {typeof settings.telegram_handle === "string" ? settings.telegram_handle : "Telegram"}<br />

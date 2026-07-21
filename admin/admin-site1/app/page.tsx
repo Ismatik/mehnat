@@ -8,6 +8,7 @@ import { useEffect, useMemo, useState } from "react";
 import { me, clearToken, getToken, SITE_KEY, type SessionUser } from "../lib/api";
 import { BRAND } from "../lib/brand";
 import { RESOURCES } from "../lib/schema";
+import { UiLangProvider, useT } from "../components/uilang";
 import Login from "../components/Login";
 import ResourceSection from "../components/ResourceSection";
 import SettingsSection from "../components/SettingsSection";
@@ -19,6 +20,14 @@ const SITE_LABEL: Record<string, string> = {
 };
 
 export default function Page() {
+  return (
+    <UiLangProvider>
+      <PageInner />
+    </UiLangProvider>
+  );
+}
+
+function PageInner() {
   const [booting, setBooting] = useState(true);
   const [session, setSession] = useState<SessionUser | null>(null);
 
@@ -49,6 +58,7 @@ export default function Page() {
 type SectionId = string; // resource key | "__settings__" | "__messages__"
 
 function Shell({ session, onLogout }: { session: SessionUser; onLogout: () => void }) {
+  const { t } = useT();
   const [active, setActive] = useState<SectionId>(RESOURCES[0].key);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -70,7 +80,7 @@ function Shell({ session, onLogout }: { session: SessionUser; onLogout: () => vo
           </div>
         </div>
         <nav className="side-nav">
-          {RESOURCES.map((r) => (
+          {RESOURCES.filter((r) => !r.hidden).map((r) => (
             <button key={r.key} className={`side-link ${active === r.key ? "active" : ""}`} onClick={() => pick(r.key)}>
               <span className="side-icon">{r.icon}</span> {r.label}
             </button>
@@ -90,7 +100,7 @@ function Shell({ session, onLogout }: { session: SessionUser; onLogout: () => vo
           <button className="burger" onClick={() => setMenuOpen((o) => !o)} aria-label="Меню">☰</button>
           <div className="spacer" />
           <span className="who">{session.email}{session.role === "superadmin" ? " · суперадмин" : ""}</span>
-          <button className="btn btn-ghost btn-sm" onClick={onLogout}>Выйти</button>
+          <button className="btn btn-ghost btn-sm" onClick={onLogout}>{t("logout")}</button>
         </header>
 
         <main className="admin-content">

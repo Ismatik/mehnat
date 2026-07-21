@@ -32,3 +32,9 @@ func Raw(w http.ResponseWriter, status int, raw []byte) {
 func Error(w http.ResponseWriter, status int, msg string) {
 	JSON(w, status, map[string]string{"error": msg})
 }
+
+// ErrCode пишет JSON вида {"error":"<стабильный_код>","message":"<англ. описание>"}.
+// Фронт маппит код на локализованный текст (ru/tg/en), message — для логов/отладки.
+func ErrCode(w http.ResponseWriter, status int, code, msg string) {
+	JSON(w, status, map[string]string{"error": code, "message": msg})
+}

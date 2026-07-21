@@ -71,7 +71,7 @@ func (h *Handlers) UserCreate(w http.ResponseWriter, r *http.Request) {
 		in.Role = "editor"
 	}
 	if !validRoles[in.Role] {
-		httpx.Error(w, http.StatusBadRequest, "invalid role")
+		httpx.ErrCode(w, http.StatusBadRequest, "invalid_role", "invalid role")
 		return
 	}
 	hash, err := auth.HashPassword(in.Password)
@@ -91,7 +91,7 @@ func (h *Handlers) UserCreate(w http.ResponseWriter, r *http.Request) {
 	} else {
 		sites = sanitizeSites(in.SiteAccess)
 		if len(sites) == 0 {
-			httpx.Error(w, http.StatusBadRequest, "выберите хотя бы один сайт для доступа")
+			httpx.ErrCode(w, http.StatusBadRequest, "site_required", "at least one site required")
 			return
 		}
 	}
@@ -104,7 +104,7 @@ func (h *Handlers) UserCreate(w http.ResponseWriter, r *http.Request) {
 		in.Email, hash, in.FullName, in.Role, sites, isActive,
 	).Scan(&out)
 	if err != nil {
-		httpx.Error(w, http.StatusBadRequest, "create failed (email may already exist)")
+		httpx.ErrCode(w, http.StatusBadRequest, "email_exists", "create failed (email may already exist)")
 		return
 	}
 	httpx.Raw(w, http.StatusCreated, out)
@@ -143,7 +143,7 @@ func (h *Handlers) UserUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 	if _, ok := raw["role"]; ok {
 		if !validRoles[in.Role] {
-			httpx.Error(w, http.StatusBadRequest, "invalid role")
+			httpx.ErrCode(w, http.StatusBadRequest, "invalid_role", "invalid role")
 			return
 		}
 		add("role", in.Role)
@@ -167,7 +167,7 @@ func (h *Handlers) UserUpdate(w http.ResponseWriter, r *http.Request) {
 	} else if _, ok := raw["site_access"]; ok {
 		sites := sanitizeSites(in.SiteAccess)
 		if len(sites) == 0 {
-			httpx.Error(w, http.StatusBadRequest, "выберите хотя бы один сайт для доступа")
+			httpx.ErrCode(w, http.StatusBadRequest, "site_required", "at least one site required")
 			return
 		}
 		add("site_access", sites)
@@ -198,7 +198,7 @@ func (h *Handlers) UserUpdate(w http.ResponseWriter, r *http.Request) {
 			httpx.Error(w, http.StatusNotFound, "not found")
 			return
 		}
-		httpx.Error(w, http.StatusBadRequest, "update failed (email may already exist)")
+		httpx.ErrCode(w, http.StatusBadRequest, "email_exists", "update failed (email may already exist)")
 		return
 	}
 	httpx.Raw(w, http.StatusOK, out)
